@@ -1,0 +1,108 @@
+/* Global Reset */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Google Sans", Arial, sans-serif;
+}
+
+:root {
+  --primary: #1a73e8;
+  --background: #f8fafd;
+  --white: #ffffff;
+  --text: #202124;
+  --gray: #5f6368;
+  --border: #dadce0;
+}
+
+body {
+  background: var(--background);
+  color: var(--text);
+
+  height: 100vh;
+
+  display: flex;
+
+  overflow: hidden;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+}
+
+.material-symbols-outlined {
+  vertical-align: middle;
+}
+/* ================= DARK MODE ================= */
+
+body.dark {
+  --background: #202124;
+  --white: #303134;
+  --text: #ffffff;
+  --gray: #bdc1c6;
+  --border: #5f6368;
+
+  background: var(--background);
+  color: var(--text);
+}
+
+/* Sidebar */
+
+body.dark .sidebar {
+  background: #303134;
+  color: white;
+  border-color: #5f6368;
+}
+
+/* Navbar */
+
+body.dark .navbar {
+  background: #303134;
+  border-color: #5f6368;
+}
+
+/* Cards */
+
+body.dark .drive-card {
+  background: #303134;
+  color: white;
+  border-color: #5f6368;
+}
+
+/* Search */
+
+body.dark .search-box {
+  background: #3c4043;
+}
+
+body.dark .search-box input {
+  color: white;
+}
+
+/* Menu */
+
+body.dark .menu li {
+  color: #e8eaed;
+}
+
+body.dark .menu li:hover {
+  background: #3c4043;
+}
+
+body.dark .menu .active {
+  background: #174ea6;
+}
+
+/* Dashboard */
+
+body.dark .dashboard {
+  background: #202124;
+}
+
+body.dark h1,
+body.dark h2,
+body.dark h3 {
+  color: white;
+}

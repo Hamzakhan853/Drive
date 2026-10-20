@@ -1,0 +1,155 @@
+.upload-page {
+  min-height: 100vh;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  background: #f8fafd;
+}
+
+.upload-card {
+  width: 600px;
+
+  background: white;
+
+  padding: 40px;
+
+  border-radius: 25px;
+
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+.upload-header {
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+
+  margin-bottom: 30px;
+}
+
+.upload-header span {
+  font-size: 45px;
+
+  color: #1a73e8;
+}
+
+.drop-area {
+  border: 3px dashed #1a73e8;
+
+  border-radius: 20px;
+
+  padding: 50px 20px;
+
+  text-align: center;
+
+  transition: 0.3s;
+}
+
+.drop-area:hover {
+  background: #e8f0fe;
+}
+
+.drop-area span {
+  font-size: 70px;
+
+  color: #1a73e8;
+}
+
+.drop-area h2 {
+  margin-top: 20px;
+
+  font-size: 22px;
+}
+
+.drop-area p {
+  color: #5f6368;
+
+  margin: 10px;
+}
+
+#browseBtn {
+  margin-top: 20px;
+
+  padding: 12px 30px;
+
+  border-radius: 25px;
+
+  background: #1a73e8;
+
+  color: white;
+
+  font-size: 16px;
+}
+
+.file-list {
+  margin-top: 30px;
+}
+
+.file-item {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding: 15px;
+
+  background: #f1f3f4;
+
+  border-radius: 12px;
+
+  margin-bottom: 10px;
+}
+
+.file-info {
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+}
+
+.file-icon {
+  color: #ea4335;
+}
+
+.progress-bar {
+  height: 7px;
+
+  width: 150px;
+
+  background: #ddd;
+
+  border-radius: 20px;
+}
+
+.progress-bar div {
+  width: 70%;
+
+  height: 100%;
+
+  background: #34a853;
+
+  border-radius: 20px;
+}
+
+.upload-btn {
+  width: 100%;
+
+  margin-top: 30px;
+
+  height: 50px;
+
+  border-radius: 25px;
+
+  background: #1a73e8;
+
+  color: white;
+
+  font-size: 17px;
+}

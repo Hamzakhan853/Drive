@@ -1,0 +1,32 @@
+.main {
+  flex: 1;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.dashboard {
+  padding: 32px 36px 48px;
+  height: calc(100vh - 75px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #f8fafd;
+  -webkit-overflow-scrolling: touch;
+}
+
+.dashboard h1 {
+  font-size: 34px;
+  margin-bottom: 12px;
+  color: #202124;
+}
+
+.dashboard h2 {
+  margin: 28px 0 16px;
+  font-size: 22px;
+}
+
+body.dark .dashboard {
+  background: #202124;
+}

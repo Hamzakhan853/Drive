@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script>
+      (function () {
+        try {
+          if (sessionStorage.getItem("mdPortalEnter") === "1") {
+            document.documentElement.classList.add("md-entering");
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <style id="mdEnterBoot">
+      html.md-entering body {
+        opacity: 0 !important;
+      }
+      html.md-entering {
+        background: #eef2ff !important;
+      }
+      html.md-entering.dark,
+      html.dark.md-entering {
+        background: #0f172a !important;
+      }
+      html.md-entered body {
+        opacity: 1 !important;
+        -webkit-transition: opacity 0.45s ease !important;
+        transition: opacity 0.45s ease !important;
+      }
+    </style>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Drive — Your files, everywhere</title>
+    <link rel="stylesheet" href="frontpage.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+      rel="stylesheet"
+    />
+    <style>
+      /* Hollow/outline cloud — same as login brand */
+      .logo .material-symbols-outlined,
+      .fp-modal-brand .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
+    </style>
+    <script>
+      (function () {
+        try {
+          var mode =
+            localStorage.getItem("themeMode") ||
+            localStorage.getItem("theme") ||
+            "system";
+          var preferDark =
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches;
+          var dark = false;
+          if (mode === "dark") dark = true;
+          else if (mode === "light") dark = false;
+          else dark = !!preferDark;
+          if (dark) document.documentElement.classList.add("dark");
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+
+  <body class="fp-noscroll">
+    <!-- Animated background orbs -->
+    <div class="bg-orbs" aria-hidden="true">
+      <span class="orb orb-a"></span>
+      <span class="orb orb-b"></span>
+      <span class="orb orb-c"></span>
+    </div>
+
+    <!-- Soft rising clouds (mobile + desktop, subtle) -->
+    <div class="fp-clouds" aria-hidden="true">
+      <div class="fp-cloud c1"><i></i><i></i><i></i><i></i></div>
+      <div class="fp-cloud c2"><i></i><i></i><i></i><i></i></div>
+      <div class="fp-cloud c3"><i></i><i></i><i></i><i></i></div>
+      <div class="fp-cloud c4"><i></i><i></i><i></i><i></i></div>
+      <div class="fp-cloud c5"><i></i><i></i><i></i><i></i></div>
+      <div class="fp-cloud c6"><i></i><i></i><i></i><i></i></div>
+    </div>
+
+    <!-- Floating activity icons — spaced on left/right edges only -->
+            <div class="float-stage" aria-hidden="true">
+      <div class="float-chip chip-folder f1">
+        <span class="material-symbols-outlined">folder</span>
+        <span class="chip-label">Docs</span>
+      </div>
+      <div class="float-chip chip-file f2">
+        <span class="material-symbols-outlined">picture_as_pdf</span>
+        <span class="chip-label">Report.pdf</span>
+      </div>
+      <div class="float-chip chip-video f3">
+        <span class="material-symbols-outlined">movie</span>
+        <span class="chip-label">Clip.mp4</span>
+      </div>
+      <div class="float-chip chip-audio f4">
+        <span class="material-symbols-outlined">audio_file</span>
+        <span class="chip-label">Song.mp3</span>
+      </div>
+      <div class="float-chip chip-trash f5">
+        <span class="material-symbols-outlined">delete</span>
+        <span class="chip-label">Trash</span>
+      </div>
+      <div class="float-chip chip-load f6">
+        <span class="material-symbols-outlined spin">progress_activity</span>
+        <span class="chip-label">Uploading…</span>
+        <span class="load-bar"><i></i></span>
+      </div>
+      <div class="float-chip chip-image f7">
+        <span class="material-symbols-outlined">image</span>
+        <span class="chip-label">Photo.jpg</span>
+      </div>
+      <div class="float-chip chip-folder f8">
+        <span class="material-symbols-outlined">folder_open</span>
+        <span class="chip-label">Photos</span>
+      </div>
+      <div class="float-chip chip-file f9">
+        <span class="material-symbols-outlined">description</span>
+        <span class="chip-label">Notes.txt</span>
+      </div>
+      <div class="float-chip chip-video f10">
+        <span class="material-symbols-outlined">videocam</span>
+        <span class="chip-label">Reel.mp4</span>
+      </div>
+    </div>
+
+    <nav>
+      <a class="logo" href="frontpage.html" aria-label="MiniDrive">
+        <span class="material-symbols-outlined">cloud</span>
+        <h3>MiniDrive</h3>
+      </a>
+
+      <div class="nav-right">
+        <button
+          type="button"
+          class="theme-btn"
+          id="fpThemeBtn"
+          title="Toggle theme"
+          aria-label="Toggle dark mode"
+        >
+          <span class="material-symbols-outlined" id="fpThemeIcon">dark_mode</span>
+        </button>
+        <span class="nav-text">Already have an account?</span>
+        <button class="login-btn" onclick="login()">Sign in</button>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-content">
+        <div class="badge">
+          <span class="green-dot"></span>
+          Your files. Always available.
+        </div>
+
+        <h1>
+          Your files.
+          <br />
+          <span class="gradient-text">Your space. Your way.</span>
+        </h1>
+
+        <p class="subtitle">
+          Store your files, organize your ideas, and access everything from
+          anywhere. Simple, secure, and built for the way you work.
+        </p>
+
+        <div class="buttons">
+          <button class="primary-btn" onclick="getStarted()">
+            Get started →
+          </button>
+          <button class="secondary-btn" onclick="learnMore()">
+            Learn more
+          </button>
+        </div>
+
+        <div class="stats hero-stats">
+          <div class="stat">
+            <strong>Anywhere</strong>
+            <span>Access your files</span>
+          </div>
+          <div class="stat">
+            <strong>Always synced</strong>
+            <span>Across your devices</span>
+          </div>
+          <div class="stat">
+            <strong>Secure</strong>
+            <span>Your data stays yours</span>
+          </div>
+        </div>
+
+        <div class="fp-mobile-cards" aria-hidden="true">
+          <div class="mcard">
+            <span class="material-symbols-outlined" style="color:#f59e0b">folder</span>
+            <div class="mname">Projects</div>
+          </div>
+          <div class="mcard">
+            <span class="material-symbols-outlined" style="color:#ef4444">picture_as_pdf</span>
+            <div class="mname">Report.pdf</div>
+          </div>
+          <div class="mcard">
+            <span class="material-symbols-outlined" style="color:#3b82f6">image</span>
+            <div class="mname">Photo.jpg</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    <script>
+      function applyFpTheme() {
+        var mode =
+          localStorage.getItem("themeMode") ||
+          localStorage.getItem("theme") ||
+          "system";
+        var preferDark =
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches;
+        var dark = false;
+        if (mode === "dark") dark = true;
+        else if (mode === "light") dark = false;
+        else dark = !!preferDark;
+        document.body.classList.toggle("dark", dark);
+        document.documentElement.classList.toggle("dark", dark);
+        var icon = document.getElementById("fpThemeIcon");
+        if (icon) icon.textContent = dark ? "light_mode" : "dark_mode";
+      }
+
+      function setFpTheme(mode) {
+        localStorage.setItem("themeMode", mode);
+        var preferDark =
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches;
+        var resolved =
+          mode === "system" ? (preferDark ? "dark" : "light") : mode;
+        localStorage.setItem("theme", resolved);
+        try {
+          var raw = localStorage.getItem("miniDriveSettings");
+          var s = raw ? JSON.parse(raw) : {};
+          s.appearance = mode;
+          localStorage.setItem("miniDriveSettings", JSON.stringify(s));
+        } catch (e) {}
+        applyFpTheme();
+      }
+
+      document.getElementById("fpThemeBtn").addEventListener("click", function () {
+        var dark = document.body.classList.contains("dark");
+        setFpTheme(dark ? "light" : "dark");
+      });
+
+      applyFpTheme();
+
+                                    function navigatePortal(url, opts) {
+        opts = opts || {};
+        try {
+          if (window.__mdPortalTimer) {
+            clearTimeout(window.__mdPortalTimer);
+            window.__mdPortalTimer = null;
+          }
+          document.querySelectorAll(".md-portal").forEach(function (n) { n.remove(); });
+          var portal = document.createElement("div");
+          portal.className = "md-portal";
+          portal.setAttribute("aria-hidden", "true");
+          portal.innerHTML = '<div class="md-portal-core"><span class="material-symbols-outlined">cloud</span></div>';
+          document.body.appendChild(portal);
+          void portal.offsetWidth;
+          requestAnimationFrame(function () {
+            portal.classList.add("md-portal-on");
+          });
+          // Wait until cover is fully opaque before navigating (no flash)
+          var delay = opts.delay != null ? opts.delay : 450;
+          if (url) {
+            try { sessionStorage.setItem("mdPortalEnter", "1"); } catch (e) {}
+            window.__mdPortalTimer = setTimeout(function () {
+              window.__mdPortalTimer = null;
+              window.location.href = url;
+            }, delay);
+          } else {
+            window.__mdPortalTimer = setTimeout(function () {
+              window.__mdPortalTimer = null;
+              portal.classList.add("md-portal-done");
+              setTimeout(function () { try { portal.remove(); } catch (e) {} }, 420);
+            }, delay);
+          }
+        } catch (e) {
+          if (url) window.location.href = url;
+        }
+      }
+
+
+
+
+
+
+                                    function playPortalIn() {
+        try {
+          if (sessionStorage.getItem("mdPortalEnter") !== "1") {
+            document.documentElement.classList.remove("md-entering");
+            return;
+          }
+          sessionStorage.removeItem("mdPortalEnter");
+          // Soft reveal only — no second overlay (avoids flicker)
+          document.documentElement.classList.add("md-entered");
+          document.documentElement.classList.remove("md-entering");
+          setTimeout(function () {
+      document.documentElement.classList.remove("md-entered");
+            var boot = document.getElementById("mdEnterBoot");
+            if (boot) try { boot.remove(); } catch (e) {}
+          }, 550);
+        } catch (e) {
+          try { document.documentElement.classList.remove("md-entering"); } catch (err) {}
+        }
+      }
+
+
+
+
+
+
+      function login() {
+        navigatePortal("login.html?mode=signin", { dir: "out" });
+      }
+
+      function getStarted() {
+        navigatePortal("login.html?mode=signup", { dir: "out" });
+      }
+
+      function learnMore() {
+        navigatePortal("learn-more.html", { dir: "out" });
+      }
+
+      playPortalIn();
+
+      /* Never leave portal stuck after browser Back / bfcache restore */
+      (function () {
+        function clearPortals() {
+          try {
+            document.querySelectorAll(".md-portal").forEach(function (n) { n.remove(); });
+          } catch (e) {}
+        }
+        window.addEventListener("pageshow", function (e) {
+          if (e.persisted) {
+            clearPortals();
+            try { sessionStorage.removeItem("mdPortalEnter"); } catch (err) {}
+          }
+        });
+        window.addEventListener("pagehide", clearPortals);
+      })();
+
+    </script>
+  </body>
+</html>

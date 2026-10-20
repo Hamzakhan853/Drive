@@ -1,0 +1,2087 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script>
+      (function () {
+        try {
+          if (sessionStorage.getItem("mdPortalEnter") === "1") {
+            document.documentElement.classList.add("md-entering");
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <style id="mdEnterBoot">
+      html.md-entering body {
+        opacity: 0 !important;
+      }
+      html.md-entering {
+        background: #eef2ff !important;
+      }
+      html.md-entering.dark,
+      html.dark.md-entering {
+        background: #0f172a !important;
+      }
+      html.md-entered body {
+        opacity: 1 !important;
+        -webkit-transition: opacity 0.45s ease !important;
+        transition: opacity 0.45s ease !important;
+      }
+    
+      
+      
+      /* iOS-friendly clouds: real child puffs, only transform/opacity animated */
+      .fp-clouds,
+      .login-clouds {
+        position: fixed !important;
+        inset: 0 !important;
+        pointer-events: none !important;
+        z-index: 1 !important;
+        overflow: hidden !important;
+      }
+      .fp-cloud {
+        position: absolute !important;
+        bottom: -40px !important;
+        width: 88px !important;
+        height: 48px !important;
+        opacity: 0;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        -webkit-animation-timing-function: linear;
+        animation-timing-function: linear;
+      }
+      .fp-cloud i {
+        position: absolute !important;
+        display: block !important;
+        background: rgba(148, 163, 184, 0.45) !important;
+        border-radius: 50% !important;
+      }
+      .fp-cloud i:nth-child(1) {
+        width: 36px; height: 36px; left: 8px; bottom: 4px;
+      }
+      .fp-cloud i:nth-child(2) {
+        width: 44px; height: 44px; left: 28px; bottom: 8px;
+      }
+      .fp-cloud i:nth-child(3) {
+        width: 32px; height: 32px; left: 52px; bottom: 2px;
+      }
+      .fp-cloud i:nth-child(4) {
+        width: 56px; height: 22px; left: 16px; bottom: 0;
+        border-radius: 20px !important;
+      }
+      body.dark .fp-cloud i,
+      html.dark .fp-cloud i {
+        background: rgba(165, 180, 252, 0.32) !important;
+      }
+      .fp-cloud.c1 {
+        left: 5%;
+        -webkit-animation: iosCloud1 16s linear infinite;
+        animation: iosCloud1 16s linear infinite;
+      }
+      .fp-cloud.c2 {
+        left: 20%; width: 100px;
+        -webkit-animation: iosCloud2 20s linear infinite;
+        animation: iosCloud2 20s linear infinite;
+        -webkit-animation-delay: -4s; animation-delay: -4s;
+      }
+      .fp-cloud.c3 {
+        left: 38%; width: 72px;
+        -webkit-animation: iosCloud3 14s linear infinite;
+        animation: iosCloud3 14s linear infinite;
+        -webkit-animation-delay: -8s; animation-delay: -8s;
+      }
+      .fp-cloud.c4 {
+        left: 54%; width: 96px;
+        -webkit-animation: iosCloud4 18s linear infinite;
+        animation: iosCloud4 18s linear infinite;
+        -webkit-animation-delay: -2s; animation-delay: -2s;
+      }
+      .fp-cloud.c5 {
+        left: 72%; width: 80px;
+        -webkit-animation: iosCloud5 17s linear infinite;
+        animation: iosCloud5 17s linear infinite;
+        -webkit-animation-delay: -6s; animation-delay: -6s;
+      }
+      .fp-cloud.c6 {
+        left: 86%; width: 90px;
+        -webkit-animation: iosCloud6 19s linear infinite;
+        animation: iosCloud6 19s linear infinite;
+        -webkit-animation-delay: -10s; animation-delay: -10s;
+      }
+      @-webkit-keyframes iosCloud1 {
+        0% { -webkit-transform: translate3d(0,0,0); opacity: 0; }
+        8% { opacity: 0.7; }
+        25% { -webkit-transform: translate3d(24px,-25vh,0); }
+        50% { -webkit-transform: translate3d(-16px,-52vh,0); opacity: 0.55; }
+        75% { -webkit-transform: translate3d(30px,-78vh,0); }
+        100% { -webkit-transform: translate3d(-8px,-110vh,0); opacity: 0; }
+      }
+      @keyframes iosCloud1 {
+        0% { transform: translate3d(0,0,0); opacity: 0; }
+        8% { opacity: 0.7; }
+        25% { transform: translate3d(24px,-25vh,0); }
+        50% { transform: translate3d(-16px,-52vh,0); opacity: 0.55; }
+        75% { transform: translate3d(30px,-78vh,0); }
+        100% { transform: translate3d(-8px,-110vh,0); opacity: 0; }
+      }
+      @-webkit-keyframes iosCloud2 {
+        0% { -webkit-transform: translate3d(0,0,0); opacity: 0; }
+        10% { opacity: 0.65; }
+        30% { -webkit-transform: translate3d(-32px,-30vh,0); }
+        55% { -webkit-transform: translate3d(20px,-58vh,0); opacity: 0.5; }
+        100% { -webkit-transform: translate3d(12px,-112vh,0); opacity: 0; }
+      }
+      @keyframes iosCloud2 {
+        0% { transform: translate3d(0,0,0); opacity: 0; }
+        10% { opacity: 0.65; }
+        30% { transform: translate3d(-32px,-30vh,0); }
+        55% { transform: translate3d(20px,-58vh,0); opacity: 0.5; }
+        100% { transform: translate3d(12px,-112vh,0); opacity: 0; }
+      }
+      @-webkit-keyframes iosCloud3 {
+        0% { -webkit-transform: translate3d(0,0,0); opacity: 0; }
+        12% { opacity: 0.7; }
+        40% { -webkit-transform: translate3d(36px,-40vh,0); }
+        70% { -webkit-transform: translate3d(-20px,-70vh,0); opacity: 0.45; }
+        100% { -webkit-transform: translate3d(18px,-110vh,0); opacity: 0; }
+      }
+      @keyframes iosCloud3 {
+        0% { transform: translate3d(0,0,0); opacity: 0; }
+        12% { opacity: 0.7; }
+        40% { transform: translate3d(36px,-40vh,0); }
+        70% { transform: translate3d(-20px,-70vh,0); opacity: 0.45; }
+        100% { transform: translate3d(18px,-110vh,0); opacity: 0; }
+      }
+      @-webkit-keyframes iosCloud4 {
+        0% { -webkit-transform: translate3d(0,0,0); opacity: 0; }
+        8% { opacity: 0.6; }
+        35% { -webkit-transform: translate3d(-28px,-35vh,0); }
+        65% { -webkit-transform: translate3d(34px,-68vh,0); opacity: 0.5; }
+        100% { -webkit-transform: translate3d(-12px,-110vh,0); opacity: 0; }
+      }
+      @keyframes iosCloud4 {
+        0% { transform: translate3d(0,0,0); opacity: 0; }
+        8% { opacity: 0.6; }
+        35% { transform: translate3d(-28px,-35vh,0); }
+        65% { transform: translate3d(34px,-68vh,0); opacity: 0.5; }
+        100% { transform: translate3d(-12px,-110vh,0); opacity: 0; }
+      }
+      @-webkit-keyframes iosCloud5 {
+        0% { -webkit-transform: translate3d(0,0,0); opacity: 0; }
+        10% { opacity: 0.68; }
+        45% { -webkit-transform: translate3d(22px,-45vh,0); }
+        100% { -webkit-transform: translate3d(-30px,-108vh,0); opacity: 0; }
+      }
+      @keyframes iosCloud5 {
+        0% { transform: translate3d(0,0,0); opacity: 0; }
+        10% { opacity: 0.68; }
+        45% { transform: translate3d(22px,-45vh,0); }
+        100% { transform: translate3d(-30px,-108vh,0); opacity: 0; }
+      }
+      @-webkit-keyframes iosCloud6 {
+        0% { -webkit-transform: translate3d(0,0,0); opacity: 0; }
+        12% { opacity: 0.62; }
+        50% { -webkit-transform: translate3d(-36px,-50vh,0); opacity: 0.5; }
+        100% { -webkit-transform: translate3d(24px,-112vh,0); opacity: 0; }
+      }
+      @keyframes iosCloud6 {
+        0% { transform: translate3d(0,0,0); opacity: 0; }
+        12% { opacity: 0.62; }
+        50% { transform: translate3d(-36px,-50vh,0); opacity: 0.5; }
+        100% { transform: translate3d(24px,-112vh,0); opacity: 0; }
+      }
+      .auth-card, .login-box, .container, .form-side, form, .card, .left, .right, .auth-wrap {
+        position: relative;
+        z-index: 2;
+      }
+
+
+
+    </style>
+
+    <script>
+      (function () {
+        try {
+          var mode = localStorage.getItem("themeMode") || localStorage.getItem("theme") || "system";
+          var preferDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+          var dark = mode === "dark" || (mode === "system" && preferDark);
+          if (mode === "light") dark = false;
+          if (dark) document.documentElement.classList.add("dark");
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mini Drive — Sign in</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Inter, Arial, sans-serif;
+        min-height: 100vh;
+        color: #172033;
+        overflow-x: hidden;
+        background:
+          radial-gradient(circle at 15% 20%, #dcecff 0, transparent 32%),
+          radial-gradient(circle at 85% 70%, #e8ddff 0, transparent 32%),
+          #f8faff;
+      }
+
+      html, body {
+        height: 100%;
+      }
+
+      body {
+        overflow: hidden;
+      }
+
+      .page {
+        width: 90%;
+        max-width: 1100px;
+        height: 100vh;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 36px;
+        align-items: center;
+      }
+
+      .left {
+        text-align: left;
+        justify-self: start;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        color: #172033;
+        font-weight: 700;
+        font-size: 20px;
+        margin-bottom: 22px;
+      }
+
+      .brand .material-symbols-outlined {
+        color: #1a73e8;
+        font-size: 34px;
+      }
+
+      .left h1 {
+        font-size: clamp(32px, 4.2vw, 52px);
+        line-height: 1.08;
+        letter-spacing: -2px;
+        font-weight: 800;
+        margin-bottom: 12px;
+      }
+
+      .left h1 span {
+        background: linear-gradient(90deg, #4285f4, #7c4dff, #a855f7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .left p {
+        color: #667085;
+        font-size: 17px;
+        line-height: 1.7;
+        max-width: 480px;
+        margin-bottom: 22px;
+      }
+
+      .pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.75);
+        border: 1px solid #e4e9f2;
+        color: #52606d;
+        font-size: 13px;
+        font-weight: 600;
+        box-shadow: 0 5px 16px rgba(50, 70, 100, 0.05);
+      }
+
+      .pill .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #22c55e;
+        box-shadow: 0 0 8px #22c55e;
+      }
+
+      .auth-card {
+        background: rgba(255, 255, 255, 0.82);
+        backdrop-filter: blur(18px);
+        border: 1px solid rgba(255, 255, 255, 0.95);
+        border-radius: 24px;
+        padding: 26px 28px;
+        box-shadow: 0 24px 60px rgba(30, 60, 100, 0.12);
+        max-height: calc(100vh - 40px);
+        overflow-y: auto;
+      }
+
+      .mode-tabs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+        background: #eef2f7;
+        padding: 5px;
+        border-radius: 14px;
+        margin-bottom: 16px;
+      }
+
+      .mode-tab {
+        border: none;
+        background: transparent;
+        padding: 11px 12px;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 14px;
+        color: #667085;
+        cursor: pointer;
+      }
+
+      .mode-tab.active {
+        background: #fff;
+        color: #172033;
+        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+      }
+
+      .auth-header h2 {
+        font-size: 24px;
+        letter-spacing: -0.6px;
+        margin-bottom: 4px;
+        color: #111827;
+      }
+
+      .auth-header p {
+        color: #6b7280;
+        font-size: 14px;
+        margin-bottom: 14px;
+      }
+
+      .input-box {
+        position: relative;
+        margin-bottom: 14px;
+      }
+
+      .input-box input {
+        width: 100%;
+        height: 48px;
+        padding: 0 16px 0 48px;
+        border-radius: 14px;
+        border: 1px solid #dce1e8;
+        outline: none;
+        font-size: 15px;
+        color: #111827;
+        background: #fafbfc;
+        transition: 0.2s;
+      }
+
+      .input-box input:focus {
+        background: #fff;
+        border-color: #4285f4;
+        box-shadow: 0 0 0 4px rgba(66, 133, 244, 0.12);
+      }
+
+      .input-icon {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #6b7280;
+        font-size: 22px;
+      }
+
+      .options {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 4px 2px 18px;
+        font-size: 13px;
+      }
+
+      .remember {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        color: #4b5563;
+        cursor: pointer;
+      }
+
+      .remember input {
+        accent-color: #4285f4;
+      }
+
+      .forgot {
+        color: #1a73e8;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .forgot:hover {
+        text-decoration: underline;
+      }
+
+      .submit-btn {
+        width: 100%;
+        height: 48px;
+        border: none;
+        border-radius: 14px;
+        background: linear-gradient(135deg, #4285f4, #7c4dff);
+        color: white;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 12px 28px rgba(92, 100, 240, 0.28);
+        transition: 0.25s;
+      }
+
+      .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 32px rgba(92, 100, 240, 0.35);
+      }
+
+      .divider {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 20px 0;
+        color: #9ca3af;
+        font-size: 12px;
+      }
+
+      .divider::before,
+      .divider::after {
+        content: "";
+        height: 1px;
+        flex: 1;
+        background: #e5e7eb;
+      }
+
+      .google-btn {
+        width: 100%;
+        height: 50px;
+        border-radius: 14px;
+        border: 1px solid #dfe3e8;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        color: #374151;
+        font-size: 14.5px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .google-btn:hover {
+        background: #f9fafb;
+      }
+
+      .google-btn:disabled {
+        opacity: 0.75;
+        cursor: wait;
+      }
+
+      .setup-note {
+        display: none;
+        margin-bottom: 14px;
+        padding: 12px 14px;
+        border-radius: 12px;
+        background: #fff7ed;
+        border: 1px solid #fed7aa;
+        color: #9a3412;
+        font-size: 12.5px;
+        line-height: 1.55;
+      }
+
+      .setup-note strong {
+        display: block;
+        margin-bottom: 4px;
+        font-size: 13px;
+      }
+
+      .setup-note code {
+        font-size: 11px;
+        background: #ffedd5;
+        padding: 1px 5px;
+        border-radius: 4px;
+      }
+
+      .email-collapse { display: none !important; }
+
+      .email-toggle { display: none !important; }
+
+      .email-toggle:hover {
+        color: #1a73e8;
+      }
+
+      #loginForm.collapsed {
+        display: none;
+      }
+
+      .switch-line {
+        text-align: center;
+        margin-top: 18px;
+        font-size: 14px;
+        color: #6b7280;
+      }
+
+      .switch-line a {
+        color: #1a73e8;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .switch-line a:hover {
+        text-decoration: underline;
+      }
+
+      .error-message,
+      .success-message {
+        display: none;
+        padding: 10px 12px;
+        border-radius: 10px;
+        font-size: 13px;
+        margin-bottom: 14px;
+      }
+
+      .error-message {
+        color: #dc2626;
+        background: #fef2f2;
+        border: 1px solid #fecaca;
+      }
+
+      .success-message {
+        color: #15803d;
+        background: #f0fdf4;
+        border: 1px solid #bbf7d0;
+      }
+
+      .name-row {
+        display: none;
+      }
+
+      body.mode-signup .name-row {
+        display: block;
+      }
+
+      body.mode-signup .options .forgot {
+        visibility: hidden;
+      }
+
+
+      body.mode-forgot .name-row,
+      body.mode-reset .name-row {
+        display: none !important;
+      }
+      body.mode-forgot .options,
+      body.mode-reset .options {
+        display: none !important;
+      }
+      body.mode-forgot .divider,
+      body.mode-forgot .google-btn,
+      body.mode-reset .divider,
+      body.mode-reset .google-btn {
+        display: none !important;
+      }
+      body.mode-forgot .password-row,
+      body.mode-forgot #password_here {
+        display: none !important;
+      }
+      body.mode-forgot .input-box:has(#password_here) {
+        display: none !important;
+      }
+      .reset-only {
+        display: none;
+      }
+      body.mode-reset .reset-only {
+        display: block;
+      }
+      body.mode-reset .email-row-signin {
+        display: none !important;
+      }
+      body.mode-forgot .mode-tabs,
+      body.mode-reset .mode-tabs {
+        opacity: 0.55;
+        pointer-events: none;
+      }
+      .reset-link-box {
+        display: none;
+        margin: 12px 0 0;
+        padding: 12px 14px;
+        border-radius: 12px;
+        background: #eef4ff;
+        border: 1px solid #c7d7fe;
+        font-size: 13px;
+        color: #1e3a8a;
+        word-break: break-all;
+        line-height: 1.45;
+      }
+      body.dark .reset-link-box {
+        background: #1e293b;
+        border-color: #334155;
+        color: #bfdbfe;
+      }
+      .reset-link-box a {
+        color: #1a73e8;
+        font-weight: 600;
+      }
+      body.dark .reset-link-box a {
+        color: #93c5fd;
+      }
+      .back-signin {
+        display: none;
+        margin-top: 14px;
+        text-align: center;
+        font-size: 13px;
+        color: #6b7280;
+      }
+      body.mode-forgot .back-signin,
+      body.mode-reset .back-signin {
+        display: block;
+      }
+      .back-signin a {
+        color: #1a73e8;
+        font-weight: 600;
+        text-decoration: none;
+      }
+      .back-signin a:hover {
+        text-decoration: underline;
+      }
+      body.dark .back-signin {
+        color: #94a3b8;
+      }
+      body.dark .back-signin a {
+        color: #93c5fd;
+      }
+
+      @media (max-width: 900px) {
+        body {
+          overflow-y: auto;
+        }
+        .page {
+          grid-template-columns: 1fr;
+          gap: 16px;
+          height: auto;
+          min-height: 100vh;
+          padding: 20px 16px 32px;
+          align-items: start;
+          width: 100%;
+          max-width: 480px;
+          margin: 0 auto;
+          box-sizing: border-box;
+        }
+        .left {
+          text-align: center;
+        }
+        .left .brand {
+          justify-content: center;
+        }
+        .left h1 {
+          font-size: clamp(1.6rem, 6vw, 2rem);
+        }
+        .left p {
+          margin-left: auto;
+          margin-right: auto;
+          font-size: 0.95rem;
+        }
+        .pills {
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+        .auth-card {
+          max-height: none;
+          width: 100%;
+          box-sizing: border-box;
+          padding: 22px 18px;
+        }
+        /* Remove animated cloud mascot on mobile */
+        .mascot-wrap {
+          display: none !important;
+        }
+      }
+
+      /* ---- Animated cloud mascot (MiniDrive colors) ---- */
+      .mascot-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin: 18px 0 8px;
+        padding-left: 0;
+        animation: mascotBob 4.5s ease-in-out infinite;
+        transform-origin: center bottom;
+      }
+      .mascot-svg {
+        width: min(260px, 72%);
+        height: auto;
+        overflow: visible;
+        filter: drop-shadow(0 16px 26px rgba(66, 133, 244, 0.22));
+        cursor: default;
+      }
+      .mascot-pupil {
+        transition: none;
+      }
+      @keyframes mascotBob {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
+      .mascot-wrap.happy #smilePath {
+        stroke-width: 5.5;
+      }
+      .cheek {
+        opacity: 0.5;
+      }
+      body.dark .mascot-svg {
+        filter: drop-shadow(0 16px 26px rgba(124, 77, 255, 0.25));
+      }
+      @media (max-width: 900px) {
+        .mascot-wrap {
+          display: none !important;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .mascot-wrap { animation: none; }
+      }
+
+
+      body.dark .error-message {
+        color: #fca5a5;
+        background: #450a0a;
+        border-color: #7f1d1d;
+      }
+      body.dark .success-message {
+        color: #86efac;
+        background: #052e16;
+        border-color: #14532d;
+      }
+
+      html.dark body,
+      body.dark {
+        color: #e8eaed;
+        background:
+          radial-gradient(circle at 15% 20%, #1e3a5f 0, transparent 32%),
+          radial-gradient(circle at 85% 70%, #2e1065 0, transparent 32%),
+          #0f172a !important;
+      }
+      body.dark .auth-card {
+        background: rgba(30, 41, 59, 0.92);
+        border-color: #334155;
+      }
+      body.dark .auth-header h2,
+      body.dark .brand,
+      body.dark .left h1 { color: #f8fafc; }
+      body.dark .auth-header p,
+      body.dark .left p,
+      body.dark .switch-line,
+      body.dark .options { color: #94a3b8; }
+      body.dark .input-box input {
+        background: #0f172a;
+        border-color: #334155;
+        color: #e2e8f0;
+      }
+      body.dark .mode-tabs { background: #0f172a; }
+      body.dark .mode-tab.active {
+        background: #1e293b;
+        color: #e2e8f0;
+      }
+      body.dark .google-btn {
+        background: #1e293b;
+        border-color: #334155;
+        color: #e2e8f0;
+      }
+      body.dark .pill {
+        background: rgba(30, 41, 59, 0.9);
+        border-color: #334155;
+        color: #cbd5e1;
+      }
+      body.dark .remember { color: #cbd5e1; }
+
+
+
+/* ============================================================
+   MiniDrive — simple cloud page transition
+   ============================================================ */
+
+.md-portal {
+  position: fixed;
+  top: 0; right: 0; bottom: 0; left: 0;
+  z-index: 2147483646;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 42%, #e8eeff 0%, #d4ddff 30%, #eef2ff 65%, #f5f7fb 100%);
+  opacity: 0;
+  -webkit-transition: opacity 0.4s ease;
+  transition: opacity 0.4s ease;
+}
+body.dark .md-portal,
+html.dark .md-portal {
+  background:
+    radial-gradient(circle at 50% 42%, #1e1b4b 0%, #16142e 35%, #0f172a 70%, #020617 100%);
+}
+.md-portal.md-portal-on {
+  opacity: 1;
+  pointer-events: auto;
+}
+.md-portal.md-portal-done {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.md-portal-core {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.18);
+  opacity: 0;
+  -webkit-transform: scale(0.8);
+  transform: scale(0.8);
+  -webkit-transition: opacity 0.35s ease, -webkit-transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 0.35s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+body.dark .md-portal-core,
+html.dark .md-portal-core {
+  background: #1e1b4b;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+.md-portal.md-portal-on .md-portal-core {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+.md-portal.md-portal-done .md-portal-core {
+  opacity: 0;
+  -webkit-transform: scale(0.92);
+  transform: scale(0.92);
+}
+.md-portal-core .material-symbols-outlined {
+  font-size: 32px;
+  color: #4f46e5;
+  font-variation-settings: "FILL" 1;
+}
+body.dark .md-portal-core .material-symbols-outlined,
+html.dark .md-portal-core .material-symbols-outlined {
+  color: #a5b4fc;
+}
+
+.drive-content-fade {
+  -webkit-transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease;
+}
+.drive-content-fade.is-leaving,
+.drive-content-fade.is-entering { opacity: 0; }
+.drive-content-fade.is-visible { opacity: 1; }
+
+</style>
+  </head>
+  <body>
+    <div class="fp-clouds login-clouds" aria-hidden="true">
+      <div class="fp-cloud c1"><i></i><i></i><i></i><i></i></div>
+      <div class="fp-cloud c2"><i></i><i></i><i></i><i></i></div>
+      <div class="fp-cloud c3"><i></i><i></i><i></i><i></i></div>
+      <div class="fp-cloud c4"><i></i><i></i><i></i><i></i></div>
+      <div class="fp-cloud c5"><i></i><i></i><i></i><i></i></div>
+      <div class="fp-cloud c6"><i></i><i></i><i></i><i></i></div>
+    </div>
+
+    <main class="page">
+      <section class="left">
+        <a class="brand" href="frontpage.html">
+          <span class="material-symbols-outlined">cloud</span>
+          MiniDrive
+        </a>
+        <h1>
+          Your files.
+          <br />
+          <span>Your space.</span>
+        </h1>
+        <p>
+          Store, organize, and access everything from anywhere — with a simple
+          cloud workspace built for the way you work.
+        </p>
+        <div class="pills">
+          <div class="pill"><span class="dot"></span> Secure storage</div>
+          <div class="pill"><span class="dot"></span> Access anywhere</div>
+          <div class="pill"><span class="dot"></span> Fast & simple</div>
+        </div>
+
+        <!-- Cloud mascot – left side, brand colors -->
+        <div class="mascot-wrap" aria-hidden="true">
+          <svg class="mascot-svg" id="mascotSvg" viewBox="0 0 280 210" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="cloudGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#4285F4"/>
+                <stop offset="55%" stop-color="#7C4DFF"/>
+                <stop offset="100%" stop-color="#A855F7"/>
+              </linearGradient>
+              <linearGradient id="cloudHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.35"/>
+                <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+
+            <!-- Soft ground shadow -->
+            <ellipse cx="140" cy="198" rx="70" ry="8" fill="#4285F4" opacity="0.12"/>
+
+            <!-- Main cloud body -->
+            <g id="cloudBody">
+              <circle cx="70" cy="120" r="42" fill="url(#cloudGrad)"/>
+              <circle cx="120" cy="100" r="52" fill="url(#cloudGrad)"/>
+              <circle cx="175" cy="105" r="48" fill="url(#cloudGrad)"/>
+              <circle cx="220" cy="125" r="38" fill="url(#cloudGrad)"/>
+              <ellipse cx="145" cy="145" rx="95" ry="42" fill="url(#cloudGrad)"/>
+              <!-- Highlight -->
+              <ellipse cx="120" cy="95" rx="36" ry="22" fill="url(#cloudHighlight)"/>
+            </g>
+
+            <!-- Eyes (grouped at center for clean blink + look) -->
+            <g id="eyeGroupL" transform="translate(115, 115)">
+              <ellipse class="eye-white" cx="0" cy="0" rx="16" ry="16" fill="#fff"/>
+              <g id="pupilWrapL">
+                <circle class="mascot-pupil" id="pupilL" cx="0" cy="0" r="7.5" fill="#1E293B"/>
+                <circle class="eye-shine" cx="3" cy="-3" r="2.4" fill="#fff" opacity="0.95"/>
+              </g>
+            </g>
+            <g id="eyeGroupR" transform="translate(165, 115)">
+              <ellipse class="eye-white" cx="0" cy="0" rx="16" ry="16" fill="#fff"/>
+              <g id="pupilWrapR">
+                <circle class="mascot-pupil" id="pupilR" cx="0" cy="0" r="7.5" fill="#1E293B"/>
+                <circle class="eye-shine" cx="3" cy="-3" r="2.4" fill="#fff" opacity="0.95"/>
+              </g>
+            </g>
+
+            <!-- Cheeks -->
+            <ellipse class="cheek" cx="98" cy="132" rx="9" ry="5" fill="#F9A8D4"/>
+            <ellipse class="cheek" cx="182" cy="132" rx="9" ry="5" fill="#F9A8D4"/>
+            <!-- Smile (happy / normal) -->
+            <path id="smilePath" d="M122 138 Q140 152 158 138" fill="none" stroke="#1E293B" stroke-width="4.5" stroke-linecap="round"/>
+            <!-- Shy mouth when covering eyes -->
+            <path id="shyMouth" d="M132 142 Q140 138 148 142" fill="none" stroke="#1E293B" stroke-width="4" stroke-linecap="round" opacity="0"/>
+
+            <!-- Arms (cloud puffs) – local origin at center of each arm -->
+            <g id="armL" transform="translate(48, 165)">
+              <circle cx="0" cy="0" r="22" fill="url(#cloudGrad)"/>
+              <circle cx="-8" cy="-6" r="10" fill="#fff" opacity="0.2"/>
+            </g>
+            <g id="armR" transform="translate(232, 165)">
+              <circle cx="0" cy="0" r="22" fill="url(#cloudGrad)"/>
+              <circle cx="6" cy="-6" r="10" fill="#fff" opacity="0.2"/>
+            </g>
+          </svg>
+        </div>
+      </section>
+
+      <section class="right">
+        <div class="auth-card">
+          <div class="mode-tabs">
+            <button type="button" class="mode-tab active" data-mode="signin" id="tabSignIn">
+              Sign in
+            </button>
+            <button type="button" class="mode-tab" data-mode="signup" id="tabSignUp">
+              Sign up
+            </button>
+          </div>
+
+          <div class="auth-header">
+            <h2 id="authTitle">Welcome back</h2>
+            <p id="authSubtitle">Sign in with your Google account to continue</p>
+          </div>
+
+          <div class="error-message" id="errorMessage"></div>
+          <div class="success-message" id="successMessage"></div>
+          <div class="setup-note" id="setupNote"></div>
+
+          <form id="loginForm">
+            <div class="input-box name-row">
+              <span class="material-symbols-outlined input-icon">person</span>
+              <input type="text" id="name_here" placeholder="Full name" />
+            </div>
+
+            <div class="input-box email-row-signin" id="emailRow">
+              <span class="material-symbols-outlined input-icon">mail</span>
+              <input
+                type="email"
+                id="email_here"
+                placeholder="Email address"
+              />
+            </div>
+
+            <div class="input-box password-row" id="passwordRow">
+              <span class="material-symbols-outlined input-icon">lock</span>
+              <input
+                type="password"
+                id="password_here"
+                placeholder="Password"
+              />
+            </div>
+
+            <div class="input-box reset-only" id="confirmPasswordRow">
+              <span class="material-symbols-outlined input-icon">lock_reset</span>
+              <input
+                type="password"
+                id="confirm_password_here"
+                placeholder="Confirm new password"
+              />
+            </div>
+
+            <div class="options">
+              <label class="remember">
+                <input type="checkbox" id="rememberMe" />
+                Remember me
+              </label>
+              <a href="#" class="forgot" id="forgotLink">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="submit-btn" id="loginBtn">Sign in</button>
+            <div class="reset-link-box" id="resetLinkBox"></div>
+            <div class="back-signin">
+              <a href="login.html?mode=signin" id="backToSignIn">← Back to sign in</a>
+            </div>
+          </form>
+
+          <div class="divider"><span>OR</span></div>
+
+          <button type="button" class="google-btn" id="googleBtn">
+            <svg width="18" height="18" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M21.35 12.27c0-.68-.06-1.34-.17-1.97H12v3.73h5.24a4.48 4.48 0 01-1.94 2.94v2.45h3.14c1.84-1.69 2.91-4.18 2.91-7.15z"/>
+              <path fill="#34A853" d="M12 21.5c2.63 0 4.84-.87 6.45-2.36l-3.14-2.45c-.87.58-1.98.93-3.31.93-2.54 0-4.69-1.72-5.46-4.03H3.29v2.53A9.74 9.74 0 0012 21.5z"/>
+              <path fill="#FBBC05" d="M6.54 13.59A5.85 5.85 0 016.23 12c0-.55.11-1.09.31-1.59V7.88H3.29A9.75 9.75 0 002.25 12c0 1.57.38 3.06 1.04 4.12l3.25-2.53z"/>
+              <path fill="#EA4335" d="M12 6.38c1.43 0 2.71.49 3.72 1.46l2.79-2.79C16.84 3.45 14.63 2.5 12 2.5a9.74 9.74 0 00-8.71 5.38l3.25 2.53C7.31 8.1 9.46 6.38 12 6.38z"/>
+            </svg>
+            <span id="googleBtnLabel">Sign in with Google</span>
+          </button>
+
+          <div class="switch-line" id="switchLine">
+            Don't have an account?
+            <a href="login.html?mode=signup" id="switchLink">Sign up</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="js/google-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+      // If opening Sign up, always drop previous session so accounts never mix
+      (function () {
+        try {
+          var p = new URLSearchParams(window.location.search || "");
+          var m = (p.get("mode") || "signin").toLowerCase();
+          if (m === "signup" || m === "forgot" || m === "reset") {
+            if (MiniDriveAuth.clearSession) MiniDriveAuth.clearSession();
+            // also clear legacy global drive keys
+            if (MiniDriveAuth.clearDriveCachesExceptCurrent) {
+              MiniDriveAuth.clearDriveCachesExceptCurrent("");
+            }
+          }
+        } catch (e) {}
+      })();
+      MiniDriveAuth.redirectIfLoggedIn();
+
+      (function applySharedTheme() {
+        var modeT = localStorage.getItem("themeMode") || localStorage.getItem("theme") || "system";
+        var preferDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        var dark = modeT === "dark" || (modeT === "system" && preferDark);
+        if (modeT === "light") dark = false;
+        document.body.classList.toggle("dark", dark);
+        document.documentElement.classList.toggle("dark", dark);
+      })();
+
+      const params = new URLSearchParams(window.location.search);
+      let modeParam = params.get("mode") || "signin";
+      let mode =
+        modeParam === "signup" || modeParam === "forgot" || modeParam === "reset"
+          ? modeParam
+          : "signin";
+
+      const authTitle = document.getElementById("authTitle");
+      const authSubtitle = document.getElementById("authSubtitle");
+      const loginBtn = document.getElementById("loginBtn");
+      const switchLine = document.getElementById("switchLine");
+      const nameInput = document.getElementById("name_here");
+      const tabSignIn = document.getElementById("tabSignIn");
+      const tabSignUp = document.getElementById("tabSignUp");
+      const googleBtn = document.getElementById("googleBtn");
+      const googleBtnLabel = document.getElementById("googleBtnLabel");
+      const setupNote = document.getElementById("setupNote");
+      const loginForm = document.getElementById("loginForm");
+      const emailInput = document.getElementById("email_here");
+      const passwordInput = document.getElementById("password_here");
+      const rememberMe = document.getElementById("rememberMe");
+      const errorMessage = document.getElementById("errorMessage");
+      const successMessage = document.getElementById("successMessage");
+
+      function hideAlerts() {
+        if (errorMessage) {
+          errorMessage.style.display = "none";
+          errorMessage.textContent = "";
+        }
+        if (successMessage) {
+          successMessage.style.display = "none";
+          successMessage.textContent = "";
+        }
+      }
+
+      function showError(text) {
+        hideAlerts();
+        if (!errorMessage) return;
+        errorMessage.textContent = text;
+        errorMessage.style.display = "block";
+      }
+
+      function showSuccess(text) {
+        hideAlerts();
+        if (!successMessage) return;
+        successMessage.textContent = text;
+        successMessage.style.display = "block";
+      }
+
+            let resetToken = params.get("token") || "";
+
+      function setMode(next) {
+        if (next === "signup" || next === "signin" || next === "forgot" || next === "reset") {
+          mode = next;
+        } else {
+          mode = "signin";
+        }
+
+        document.body.classList.toggle("mode-signup", mode === "signup");
+        document.body.classList.toggle("mode-forgot", mode === "forgot");
+        document.body.classList.toggle("mode-reset", mode === "reset");
+
+        if (tabSignIn) tabSignIn.classList.toggle("active", mode === "signin");
+        if (tabSignUp) tabSignUp.classList.toggle("active", mode === "signup");
+
+        const resetLinkBox = document.getElementById("resetLinkBox");
+        if (resetLinkBox) {
+          resetLinkBox.style.display = "none";
+          resetLinkBox.innerHTML = "";
+        }
+        hideAlerts();
+
+        if (mode === "signup") {
+          document.title = "Mini Drive — Sign up";
+          if (authTitle) authTitle.textContent = "Hello, new signer";
+          if (authSubtitle)
+            authSubtitle.textContent =
+              "Create your free Mini Drive account in a moment";
+          if (loginBtn) loginBtn.textContent = "Create account";
+          if (nameInput) nameInput.required = true;
+          if (passwordInput) {
+            passwordInput.required = true;
+            passwordInput.placeholder = "Password";
+          }
+          if (switchLine) {
+            switchLine.style.display = "";
+            switchLine.innerHTML =
+              'Already have an account? <a href="login.html?mode=signin" id="switchLink">Sign in</a>';
+          }
+          try {
+            history.replaceState(null, "", "login.html?mode=signup");
+          } catch (e) {}
+        } else if (mode === "forgot") {
+          document.title = "Mini Drive — Forgot password";
+          if (authTitle) authTitle.textContent = "Forgot password?";
+          if (authSubtitle)
+            authSubtitle.textContent =
+              "Enter your email and we will create a reset link for you";
+          if (loginBtn) loginBtn.textContent = "Send reset link";
+          if (nameInput) nameInput.required = false;
+          if (passwordInput) passwordInput.required = false;
+          if (switchLine) switchLine.style.display = "none";
+          try {
+            history.replaceState(null, "", "login.html?mode=forgot");
+          } catch (e) {}
+        } else if (mode === "reset") {
+          document.title = "Mini Drive — Reset password";
+          if (authTitle) authTitle.textContent = "Set a new password";
+          if (authSubtitle)
+            authSubtitle.textContent =
+              "Choose a new password for your Mini Drive account";
+          if (loginBtn) loginBtn.textContent = "Update password";
+          if (nameInput) nameInput.required = false;
+          if (passwordInput) {
+            passwordInput.required = true;
+            passwordInput.placeholder = "New password";
+          }
+          if (switchLine) switchLine.style.display = "none";
+          try {
+            var q = "login.html?mode=reset";
+            if (resetToken) q += "&token=" + encodeURIComponent(resetToken);
+            history.replaceState(null, "", q);
+          } catch (e) {}
+        } else {
+          document.title = "Mini Drive — Sign in";
+          if (authTitle) authTitle.textContent = "Welcome back";
+          if (authSubtitle)
+            authSubtitle.textContent = "Sign in to continue to your Mini Drive";
+          if (loginBtn) loginBtn.textContent = "Sign in";
+          if (nameInput) nameInput.required = false;
+          if (passwordInput) {
+            passwordInput.required = true;
+            passwordInput.placeholder = "Password";
+          }
+          if (switchLine) {
+            switchLine.style.display = "";
+            switchLine.innerHTML =
+              'Don\'t have an account? <a href="login.html?mode=signup" id="switchLink">Sign up</a>';
+          }
+          try {
+            history.replaceState(null, "", "login.html?mode=signin");
+          } catch (e) {}
+        }
+      }
+
+      if (tabSignIn) tabSignIn.addEventListener("click", function () { setMode("signin"); });
+      if (tabSignUp)
+        tabSignUp.addEventListener("click", function () {
+          try {
+            if (MiniDriveAuth.clearSession) MiniDriveAuth.clearSession();
+          } catch (e) {}
+          setMode("signup");
+        });
+      setMode(mode);
+
+      var switchLink = document.getElementById("switchLink");
+      if (switchLink) {
+        switchLink.addEventListener("click", function (e) {
+          var href = switchLink.getAttribute("href") || "";
+          if (href.indexOf("signup") >= 0) {
+            try {
+              if (MiniDriveAuth.clearSession) MiniDriveAuth.clearSession();
+            } catch (err) {}
+          }
+        });
+      }
+
+      // Switch link clicks (delegated)
+      document.addEventListener("click", function (e) {
+        const a = e.target.closest("#switchLink");
+        if (!a) return;
+        e.preventDefault();
+        const href = a.getAttribute("href") || "";
+        setMode(href.indexOf("signup") >= 0 ? "signup" : "signin");
+      });
+
+
+
+
+
+
+
+      /* Unified MiniDrive cloud portal navigation */
+                                    function navigatePortal(url, opts) {
+        opts = opts || {};
+        try {
+          if (window.__mdPortalTimer) {
+            clearTimeout(window.__mdPortalTimer);
+            window.__mdPortalTimer = null;
+          }
+          document.querySelectorAll(".md-portal").forEach(function (n) { n.remove(); });
+          var portal = document.createElement("div");
+          portal.className = "md-portal";
+          portal.setAttribute("aria-hidden", "true");
+          portal.innerHTML = '<div class="md-portal-core"><span class="material-symbols-outlined">cloud</span></div>';
+          document.body.appendChild(portal);
+          void portal.offsetWidth;
+          requestAnimationFrame(function () {
+            portal.classList.add("md-portal-on");
+          });
+          // Wait until cover is fully opaque before navigating (no flash)
+          var delay = opts.delay != null ? opts.delay : 450;
+          if (url) {
+            try { sessionStorage.setItem("mdPortalEnter", "1"); } catch (e) {}
+            window.__mdPortalTimer = setTimeout(function () {
+              window.__mdPortalTimer = null;
+              window.location.href = url;
+            }, delay);
+          } else {
+            window.__mdPortalTimer = setTimeout(function () {
+              window.__mdPortalTimer = null;
+              portal.classList.add("md-portal-done");
+              setTimeout(function () { try { portal.remove(); } catch (e) {} }, 420);
+            }, delay);
+          }
+        } catch (e) {
+          if (url) window.location.href = url;
+        }
+      }
+
+
+
+
+
+
+                                    function playPortalIn() {
+        try {
+          if (sessionStorage.getItem("mdPortalEnter") !== "1") {
+            document.documentElement.classList.remove("md-entering");
+            return;
+          }
+          sessionStorage.removeItem("mdPortalEnter");
+          // Soft reveal only — no second overlay (avoids flicker)
+          document.documentElement.classList.add("md-entered");
+          document.documentElement.classList.remove("md-entering");
+          setTimeout(function () {
+      document.documentElement.classList.remove("md-entered");
+            var boot = document.getElementById("mdEnterBoot");
+            if (boot) try { boot.remove(); } catch (e) {}
+          }, 550);
+        } catch (e) {
+          try { document.documentElement.classList.remove("md-entering"); } catch (err) {}
+        }
+      }
+
+
+
+
+
+
+
+
+
+
+      
+      playPortalIn();
+
+      /* Never leave portal stuck after browser Back / bfcache restore */
+      (function () {
+        function clearPortals() {
+          try {
+            document.querySelectorAll(".md-portal").forEach(function (n) { n.remove(); });
+          } catch (e) {}
+        }
+        window.addEventListener("pageshow", function (e) {
+          if (e.persisted) {
+            clearPortals();
+            try { sessionStorage.removeItem("mdPortalEnter"); } catch (err) {}
+          }
+        });
+        window.addEventListener("pagehide", clearPortals);
+      })();
+
+
+
+
+
+      function finishLogin(user, message) {
+        // Drop previous session fully so the new account never inherits it
+        try {
+          MiniDriveAuth.clearSession && MiniDriveAuth.clearSession();
+        } catch (e) {}
+        try {
+          if (MiniDriveAuth.clearDriveCachesExceptCurrent) {
+            MiniDriveAuth.clearDriveCachesExceptCurrent(user && user.email);
+          }
+        } catch (e) {}
+        MiniDriveAuth.saveSession(user);
+        showSuccess(message);
+        // Short beat so success is visible, then cloud transition into dashboard
+        setTimeout(function () {
+          navigatePortal("index.html");
+        }, 280);
+      }
+
+      async function handleGoogleAccessToken(accessToken) {
+        const user = await MiniDriveAuth.loginWithGoogleAccessToken(accessToken);
+        MiniDriveAuth.rememberGoogleUser(user.email);
+
+        if (mode === "signup" && !user.created) {
+          finishLogin(
+            user,
+            "This Google account already has Mini Drive. Signing you in...",
+          );
+          return;
+        }
+
+        finishLogin(
+          user,
+          user.created
+            ? "Account created with Google. Opening Mini Drive..."
+            : "Signed in with Google. Opening Mini Drive...",
+        );
+      }
+
+      function showSetupHelp() {
+        const origin = window.location.origin;
+        const fileProtocol = window.location.protocol === "file:";
+        setupNote.style.display = "block";
+        setupNote.innerHTML =
+          "<strong>Google sign-in needs a Client ID</strong>" +
+          (fileProtocol
+            ? "Open Mini Drive through a local server (not as a file), then add that origin in Google Cloud. "
+            : "Add this origin in Google Cloud → Credentials → your OAuth client → Authorized JavaScript origins: <code>" +
+              origin +
+              "</code>. ") +
+          "Paste your Web client ID into <code>js/google-config.js</code>.";
+      }
+
+      function initGoogleClient() {
+        const clientId = MiniDriveAuth.getClientId();
+        if (!clientId) {
+          showSetupHelp();
+          return;
+        }
+        if (window.location.protocol === "file:") {
+          showSetupHelp();
+          showError(
+            "Google sign-in cannot run from a file. Serve the folder over http://localhost and try again.",
+          );
+          return;
+        }
+        if (!window.google || !google.accounts || !google.accounts.oauth2) {
+          return false;
+        }
+
+        tokenClient = google.accounts.oauth2.initTokenClient({
+          client_id: clientId,
+          scope: "openid email profile",
+          callback: async function (response) {
+            googleBtn.disabled = false;
+            if (response.error) {
+              showError(
+                response.error === "popup_closed_by_user"
+                  ? "Google window was closed. Try again."
+                  : "Google sign-in was cancelled or blocked.",
+              );
+              return;
+            }
+            try {
+              await handleGoogleAccessToken(response.access_token);
+            } catch (err) {
+              showError(err.message || "Google sign-in failed.");
+            }
+          },
+          error_callback: function (err) {
+            googleBtn.disabled = false;
+            if (err && err.type === "popup_closed") {
+              showError("Google window was closed. Try again.");
+              return;
+            }
+            showError("Google sign-in could not start. Check your Client ID and origin.");
+          },
+        });
+        return true;
+      }
+
+      function waitForGoogle(cb) {
+        if (initGoogleClient()) {
+          cb();
+          return;
+        }
+        let tries = 0;
+        const timer = setInterval(function () {
+          tries += 1;
+          if (initGoogleClient() || tries > 40) {
+            clearInterval(timer);
+            cb();
+          }
+        }, 100);
+      }
+
+      waitForGoogle(function () {});
+
+      googleBtn.addEventListener("click", function () {
+        hideAlerts();
+        if (!MiniDriveAuth.getClientId()) {
+          showSetupHelp();
+          showError("Add your Google Client ID in js/google-config.js first.");
+          return;
+        }
+        if (window.location.protocol === "file:") {
+          showError(
+            "Google sign-in cannot run from a file. Open Mini Drive via http://localhost.",
+          );
+          return;
+        }
+        if (!tokenClient) {
+          if (!initGoogleClient()) {
+            showError("Google Sign-In is still loading. Try again in a moment.");
+            return;
+          }
+        }
+        googleBtn.disabled = true;
+        tokenClient.requestAccessToken({
+          prompt: "select_account",
+        });
+      });
+
+      loginForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
+        hideAlerts();
+        const resetLinkBox = document.getElementById("resetLinkBox");
+        if (resetLinkBox) {
+          resetLinkBox.style.display = "none";
+          resetLinkBox.innerHTML = "";
+        }
+
+        const email = emailInput ? emailInput.value.trim() : "";
+        const password = passwordInput ? passwordInput.value.trim() : "";
+        const name = nameInput ? nameInput.value.trim() : "";
+        const confirmEl = document.getElementById("confirm_password_here");
+        const confirmPassword = confirmEl ? confirmEl.value.trim() : "";
+
+        if (mode === "forgot") {
+          if (!email) {
+            showError("Please enter your email address.");
+            if (emailInput) emailInput.focus();
+            return;
+          }
+          const originalLabel = loginBtn ? loginBtn.textContent : "";
+          if (loginBtn) {
+            loginBtn.disabled = true;
+            loginBtn.textContent = "Sending...";
+          }
+          try {
+            const data = await MiniDriveAuth.requestPasswordReset(email);
+            showSuccess(
+              data.message ||
+                "If an account exists for that email, a reset link has been created.",
+            );
+            if (data.resetLink && resetLinkBox) {
+              resetLinkBox.style.display = "block";
+              resetLinkBox.innerHTML =
+                "<strong>Dev reset link</strong> (also printed in the server terminal):<br><a href=\"" +
+                data.resetLink +
+                "\">" +
+                data.resetLink +
+                "</a>";
+            }
+          } catch (err) {
+            showError(err.message || "Could not start password reset.");
+          } finally {
+            if (loginBtn) {
+              loginBtn.disabled = false;
+              loginBtn.textContent = originalLabel;
+            }
+          }
+          return;
+        }
+
+        if (mode === "reset") {
+          if (!resetToken) {
+            showError("Reset token is missing. Request a new link.");
+            return;
+          }
+          if (!password) {
+            showError("Please enter a new password.");
+            if (passwordInput) passwordInput.focus();
+            return;
+          }
+          if (password.length < 6) {
+            showError("Password must be at least 6 characters.");
+            if (passwordInput) passwordInput.focus();
+            return;
+          }
+          if (password !== confirmPassword) {
+            showError("Passwords do not match.");
+            if (confirmEl) confirmEl.focus();
+            return;
+          }
+          const originalLabel = loginBtn ? loginBtn.textContent : "";
+          if (loginBtn) {
+            loginBtn.disabled = true;
+            loginBtn.textContent = "Updating...";
+          }
+          try {
+            const data = await MiniDriveAuth.resetPasswordWithToken(
+              resetToken,
+              password,
+            );
+            showSuccess(
+              data.message || "Password updated. You can sign in now.",
+            );
+            setTimeout(function () {
+              setMode("signin");
+              showSuccess("Password updated. Sign in with your new password.");
+            }, 1200);
+          } catch (err) {
+            showError(err.message || "Could not reset password.");
+          } finally {
+            if (loginBtn) {
+              loginBtn.disabled = false;
+              loginBtn.textContent = originalLabel;
+            }
+          }
+          return;
+        }
+
+        if (mode === "signup" && !name) {
+          showError("Please enter your name.");
+          nameInput.focus();
+          return;
+        }
+        if (!email) {
+          showError("Please enter your email address.");
+          emailInput.focus();
+          return;
+        }
+        if (!password) {
+          showError("Please enter your password.");
+          passwordInput.focus();
+          return;
+        }
+        if (mode === "signup" && password.length < 6) {
+          showError("Password must be at least 6 characters.");
+          passwordInput.focus();
+          return;
+        }
+
+        if (rememberMe && rememberMe.checked) {
+          localStorage.setItem("miniDriveEmail", email);
+        } else {
+          localStorage.removeItem("miniDriveEmail");
+        }
+
+        const originalLabel = loginBtn ? loginBtn.textContent : "";
+        if (loginBtn) {
+          loginBtn.disabled = true;
+          loginBtn.textContent =
+            mode === "signup" ? "Creating account..." : "Signing in...";
+        }
+
+        try {
+          const user =
+            mode === "signup"
+              ? await MiniDriveAuth.signupWithPassword({ name, email, password })
+              : await MiniDriveAuth.loginWithPassword({ email, password });
+          finishLogin(
+            user,
+            mode === "signup"
+              ? "Account created! Opening Mini Drive..."
+              : "Sign in successful! Opening Mini Drive...",
+          );
+        } catch (err) {
+          showError(err.message || "Authorization failed.");
+          if (loginBtn) {
+            loginBtn.disabled = false;
+            loginBtn.textContent = originalLabel;
+          }
+        }
+      });
+
+      // Forgot password link
+      var forgotLink = document.getElementById("forgotLink");
+      if (forgotLink) {
+        forgotLink.addEventListener("click", function (e) {
+          e.preventDefault();
+          setMode("forgot");
+        });
+      }
+      var backToSignIn = document.getElementById("backToSignIn");
+      if (backToSignIn) {
+        backToSignIn.addEventListener("click", function (e) {
+          e.preventDefault();
+          setMode("signin");
+        });
+      }
+
+      // Validate reset token when opening reset mode
+      if (mode === "reset" && resetToken && window.MiniDriveAuth) {
+        MiniDriveAuth.validateResetToken(resetToken)
+          .then(function (data) {
+            if (data && data.email && authSubtitle) {
+              authSubtitle.textContent =
+                "Resetting password for " + data.email;
+            }
+          })
+          .catch(function (err) {
+            showError(
+              (err && err.message) ||
+                "This reset link is invalid or has expired.",
+            );
+          });
+      }
+
+
+      document.getElementById("forgotLink").addEventListener("click", function (e) {
+        e.preventDefault();
+        alert("Password reset will be available soon. Use Google sign-in instead.");
+      });
+
+      const savedEmail = localStorage.getItem("miniDriveEmail");
+      if (savedEmail) {
+        emailInput.value = savedEmail;
+        rememberMe.checked = true;
+      }
+
+      /* ---- Cloud mascot animation ---- */
+      (function initMascot() {
+        const svg = document.getElementById("mascotSvg");
+        if (!svg) return;
+        const pupilL = document.getElementById("pupilL");
+        const pupilR = document.getElementById("pupilR");
+        const armL = document.getElementById("armL");
+        const armR = document.getElementById("armR");
+        const emailEl = document.getElementById("email_here");
+        const passEl = document.getElementById("password_here");
+        const wrap = svg.closest(".mascot-wrap") || svg.parentElement;
+        const smilePath = document.getElementById("smilePath");
+        const shyMouth = document.getElementById("shyMouth");
+        if (!pupilL || !pupilR || !armL || !armR) return;
+
+        const maxOffset = 6;
+        let covering = false;
+        let lastMove = 0;
+        let hasPointer = false;
+
+        // Arms stay down unless password is focused — never auto-lift on load
+        const restL = { x: 48, y: 165, r: 0 };
+        const restR = { x: 232, y: 165, r: 0 };
+        const coverL = { x: 115, y: 115, r: 8 };
+        const coverR = { x: 165, y: 115, r: -8 };
+        let armT = 0;
+        let armTarget = 0;
+
+        function lerp(a, b, t) {
+          return a + (b - a) * t;
+        }
+
+        function applyArms() {
+          const e = 1 - Math.pow(1 - armT, 3);
+          armL.setAttribute(
+            "transform",
+            "translate(" +
+              lerp(restL.x, coverL.x, e) +
+              "," +
+              lerp(restL.y, coverL.y, e) +
+              ") rotate(" +
+              lerp(restL.r, coverL.r, e) +
+              ")",
+          );
+          armR.setAttribute(
+            "transform",
+            "translate(" +
+              lerp(restR.x, coverR.x, e) +
+              "," +
+              lerp(restR.y, coverR.y, e) +
+              ") rotate(" +
+              lerp(restR.r, coverR.r, e) +
+              ")",
+          );
+        }
+
+        function setArms(cover) {
+          armTarget = cover ? 1 : 0;
+        }
+
+        // Force rest pose immediately (no upward motion on start)
+        armT = 0;
+        armTarget = 0;
+        applyArms();
+
+        (function animateArms() {
+          if (Math.abs(armT - armTarget) > 0.003) {
+            armT += (armTarget - armT) * 0.12;
+            applyArms();
+          } else if (armT !== armTarget) {
+            armT = armTarget;
+            applyArms();
+          }
+          requestAnimationFrame(animateArms);
+        })();
+
+        const pupilWrapL = document.getElementById("pupilWrapL");
+        const pupilWrapR = document.getElementById("pupilWrapR");
+        const eyeWhites = svg.querySelectorAll(".eye-white");
+
+        function movePupils(clientX, clientY) {
+          if (covering || blinking) return;
+          const rect = svg.getBoundingClientRect();
+          const cx = rect.left + rect.width * 0.5;
+          const cy = rect.top + rect.height * 0.48;
+          const dx = clientX - cx;
+          const dy = clientY - cy;
+          const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+          const scale = Math.min(maxOffset / dist, 1);
+          const ox = dx * scale;
+          const oy = dy * scale;
+          // Move pupil groups only (eye white stays fixed)
+          if (pupilWrapL)
+            pupilWrapL.setAttribute("transform", "translate(" + ox + "," + oy + ")");
+          if (pupilWrapR)
+            pupilWrapR.setAttribute("transform", "translate(" + ox + "," + oy + ")");
+        }
+
+        function resetPupils() {
+          if (pupilWrapL) pupilWrapL.setAttribute("transform", "translate(0,0)");
+          if (pupilWrapR) pupilWrapR.setAttribute("transform", "translate(0,0)");
+        }
+
+        let blinking = false;
+        function doBlink() {
+          if (covering || blinking) return;
+          blinking = true;
+          // Close lids in place by shrinking vertical radius (no upward jump)
+          eyeWhites.forEach(function (w) {
+            w.setAttribute("ry", "1.5");
+          });
+          if (pupilWrapL) pupilWrapL.setAttribute("opacity", "0");
+          if (pupilWrapR) pupilWrapR.setAttribute("opacity", "0");
+          setTimeout(function () {
+            eyeWhites.forEach(function (w) {
+              w.setAttribute("ry", "16");
+            });
+            if (pupilWrapL) pupilWrapL.setAttribute("opacity", "1");
+            if (pupilWrapR) pupilWrapR.setAttribute("opacity", "1");
+            blinking = false;
+          }, 110);
+        }
+
+        document.addEventListener("mousemove", function (e) {
+          hasPointer = true;
+          if (covering) return;
+          const now = Date.now();
+          if (now - lastMove < 16) return;
+          lastMove = now;
+          movePupils(e.clientX, e.clientY);
+        });
+
+        // Cute blinks — close in place (no upward motion)
+        setInterval(function () {
+          if (covering) return;
+          if (Math.random() > 0.45) doBlink();
+        }, 2000);
+
+        function setSmile(mode) {
+          if (!smilePath) return;
+          if (mode === "shy") {
+            smilePath.setAttribute("opacity", "0");
+            if (shyMouth) shyMouth.setAttribute("opacity", "1");
+          } else if (mode === "happy") {
+            smilePath.setAttribute("d", "M118 136 Q140 158 162 136");
+            smilePath.setAttribute("opacity", "1");
+            smilePath.setAttribute("stroke-width", "5");
+            if (shyMouth) shyMouth.setAttribute("opacity", "0");
+            if (wrap) {
+              wrap.classList.add("happy");
+              setTimeout(function () {
+                wrap.classList.remove("happy");
+              }, 800);
+            }
+          } else {
+            smilePath.setAttribute("d", "M122 138 Q140 152 158 138");
+            smilePath.setAttribute("opacity", "1");
+            smilePath.setAttribute("stroke-width", "4.5");
+            if (shyMouth) shyMouth.setAttribute("opacity", "0");
+          }
+        }
+
+        // Occasional cute smile (no arm waving)
+        setInterval(function () {
+          if (covering) return;
+          if (Math.random() > 0.5) {
+            setSmile("happy");
+            setTimeout(function () {
+              if (!covering) setSmile("normal");
+            }, 1100);
+          }
+        }, 5000);
+
+        setSmile("normal");
+
+        if (passEl) {
+          passEl.addEventListener("focus", function () {
+            covering = true;
+            setArms(true);
+            resetPupils();
+            setSmile("shy");
+          });
+          passEl.addEventListener("blur", function () {
+            covering = false;
+            setArms(false);
+            setSmile("normal");
+          });
+        }
+        if (emailEl) {
+          emailEl.addEventListener("focus", function () {
+            if (!passEl || !passEl.matches(":focus")) {
+              covering = false;
+              setArms(false);
+              setSmile("happy");
+              setTimeout(function () {
+                if (!covering) setSmile("normal");
+              }, 800);
+            }
+          });
+        }
+      })();
+    </script>
+  
+<style id="mdCloudAnim">
+/* Guaranteed cloud animation — login mobile + laptop */
+.fp-clouds.login-clouds {
+  position: fixed !important;
+  left: 0 !important; top: 0 !important; right: 0 !important; bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+  overflow: hidden !important;
+}
+.fp-cloud {
+  position: absolute !important;
+  bottom: -60px !important;
+  width: 100px !important;
+  height: 56px !important;
+  opacity: 0.75 !important;
+  will-change: transform, opacity;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+.fp-cloud i {
+  position: absolute !important;
+  display: block !important;
+  background: rgba(100, 116, 139, 0.5) !important;
+  border-radius: 999px !important;
+}
+.fp-cloud i:nth-child(1) { width: 40px; height: 40px; left: 6px; bottom: 6px; border-radius: 50% !important; }
+.fp-cloud i:nth-child(2) { width: 48px; height: 48px; left: 28px; bottom: 10px; border-radius: 50% !important; }
+.fp-cloud i:nth-child(3) { width: 36px; height: 36px; left: 56px; bottom: 4px; border-radius: 50% !important; }
+.fp-cloud i:nth-child(4) { width: 70px; height: 26px; left: 14px; bottom: 0; }
+html.dark .fp-cloud i, body.dark .fp-cloud i {
+  background: rgba(165, 180, 252, 0.4) !important;
+}
+.fp-cloud.c1 { left: 4%;  -webkit-animation: mdC1 14s linear infinite; animation: mdC1 14s linear infinite; }
+.fp-cloud.c2 { left: 18%; width: 110px; -webkit-animation: mdC2 18s linear infinite; animation: mdC2 18s linear infinite; -webkit-animation-delay: -3s; animation-delay: -3s; }
+.fp-cloud.c3 { left: 36%; width: 80px;  -webkit-animation: mdC3 12s linear infinite; animation: mdC3 12s linear infinite; -webkit-animation-delay: -6s; animation-delay: -6s; }
+.fp-cloud.c4 { left: 52%; width: 105px; -webkit-animation: mdC4 16s linear infinite; animation: mdC4 16s linear infinite; -webkit-animation-delay: -1s; animation-delay: -1s; }
+.fp-cloud.c5 { left: 70%; width: 90px;  -webkit-animation: mdC5 15s linear infinite; animation: mdC5 15s linear infinite; -webkit-animation-delay: -5s; animation-delay: -5s; }
+.fp-cloud.c6 { left: 85%; width: 95px;  -webkit-animation: mdC6 17s linear infinite; animation: mdC6 17s linear infinite; -webkit-animation-delay: -8s; animation-delay: -8s; }
+@-webkit-keyframes mdC1 {
+  0% { -webkit-transform: translate3d(0,0,0); opacity: 0; }
+  10% { opacity: 0.8; }
+  50% { -webkit-transform: translate3d(30px,-50vh,0); opacity: 0.65; }
+  100% { -webkit-transform: translate3d(-20px,-110vh,0); opacity: 0; }
+}
+@keyframes mdC1 {
+  0% { transform: translate3d(0,0,0); opacity: 0; }
+  10% { opacity: 0.8; }
+  50% { transform: translate3d(30px,-50vh,0); opacity: 0.65; }
+  100% { transform: translate3d(-20px,-110vh,0); opacity: 0; }
+}
+@-webkit-keyframes mdC2 {
+  0% { -webkit-transform: translate3d(0,0,0); opacity: 0; }
+  12% { opacity: 0.75; }
+  45% { -webkit-transform: translate3d(-40px,-45vh,0); }
+  100% { -webkit-transform: translate3d(25px,-115vh,0); opacity: 0; }
+}
+@keyframes mdC2 {
+  0% { transform: translate3d(0,0,0); opacity: 0; }
+  12% { opacity: 0.75; }
+  45% { transform: translate3d(-40px,-45vh,0); }
+  100% { transform: translate3d(25px,-115vh,0); opacity: 0; }
+}
+@-webkit-keyframes mdC3 {
+  0% { -webkit-transform: translate3d(0,0,0); opacity: 0; }
+  10% { opacity: 0.85; }
+  55% { -webkit-transform: translate3d(45px,-55vh,0); opacity: 0.55; }
+  100% { -webkit-transform: translate3d(-15px,-110vh,0); opacity: 0; }
+}
+@keyframes mdC3 {
+  0% { transform: translate3d(0,0,0); opacity: 0; }
+  10% { opacity: 0.85; }
+  55% { transform: translate3d(45px,-55vh,0); opacity: 0.55; }
+  100% { transform: translate3d(-15px,-110vh,0); opacity: 0; }
+}
+@-webkit-keyframes mdC4 {
+  0% { -webkit-transform: translate3d(0,0,0); opacity: 0; }
+  8% { opacity: 0.7; }
+  40% { -webkit-transform: translate3d(-25px,-40vh,0); }
+  100% { -webkit-transform: translate3d(35px,-112vh,0); opacity: 0; }
+}
+@keyframes mdC4 {
+  0% { transform: translate3d(0,0,0); opacity: 0; }
+  8% { opacity: 0.7; }
+  40% { transform: translate3d(-25px,-40vh,0); }
+  100% { transform: translate3d(35px,-112vh,0); opacity: 0; }
+}
+@-webkit-keyframes mdC5 {
+  0% { -webkit-transform: translate3d(0,0,0); opacity: 0; }
+  15% { opacity: 0.8; }
+  100% { -webkit-transform: translate3d(-35px,-108vh,0); opacity: 0; }
+}
+@keyframes mdC5 {
+  0% { transform: translate3d(0,0,0); opacity: 0; }
+  15% { opacity: 0.8; }
+  100% { transform: translate3d(-35px,-108vh,0); opacity: 0; }
+}
+@-webkit-keyframes mdC6 {
+  0% { -webkit-transform: translate3d(0,0,0); opacity: 0; }
+  12% { opacity: 0.72; }
+  50% { -webkit-transform: translate3d(20px,-52vh,0); opacity: 0.5; }
+  100% { -webkit-transform: translate3d(-28px,-115vh,0); opacity: 0; }
+}
+@keyframes mdC6 {
+  0% { transform: translate3d(0,0,0); opacity: 0; }
+  12% { opacity: 0.72; }
+  50% { transform: translate3d(20px,-52vh,0); opacity: 0.5; }
+  100% { transform: translate3d(-28px,-115vh,0); opacity: 0; }
+}
+.page, .auth-card, .left, .right {
+  position: relative;
+  z-index: 2;
+}
+@media (max-width: 768px) {
+  .fp-cloud { opacity: 0.85 !important; }
+  .fp-cloud i { background: rgba(100, 116, 139, 0.55) !important; }
+}
+</style>
+<script>
+(function () {
+  function kickClouds() {
+    try {
+      document.documentElement.classList.remove("md-entering");
+      document.documentElement.classList.add("md-entered");
+      var nodes = document.querySelectorAll(".fp-cloud");
+      for (var i = 0; i < nodes.length; i++) {
+        var el = nodes[i];
+        var name = window.getComputedStyle(el).animationName;
+        el.style.webkitAnimation = "none";
+        el.style.animation = "none";
+        void el.offsetWidth;
+        el.style.webkitAnimation = "";
+        el.style.animation = "";
+      }
+    } catch (e) {}
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", kickClouds);
+  } else {
+    kickClouds();
+  }
+  setTimeout(kickClouds, 100);
+  setTimeout(kickClouds, 500);
+})();
+</script>
+
+</body>
+</html>

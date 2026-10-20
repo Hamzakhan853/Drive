@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Mini Drive - Upload</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        background: #f5f7fb;
+        color: #202124;
+      }
+
+      /* Full screen popup background */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100vh;
+
+        background: #f5f7fb;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 25px;
+        overflow-y: auto;
+
+        z-index: 9999;
+      }
+
+      .upload-container {
+        width: 90%;
+        max-width: 850px;
+      }
+
+      .top {
+        display: flex;
+        align-items: center;
+        margin-bottom: 25px;
+        gap: 15px;
+      }
+
+      .back-btn {
+        text-decoration: none;
+        color: #555;
+
+        display: flex;
+        align-items: center;
+
+        gap: 5px;
+        font-size: 15px;
+      }
+
+      .back-btn:hover {
+        color: #1976d2;
+      }
+
+      .top h1 {
+        font-size: 28px;
+      }
+
+      /* Main popup card */
+      .upload-card {
+        position: relative;
+
+        background: white;
+
+        border-radius: 20px;
+
+        padding: 40px;
+
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      /* Close button */
+      .close-btn {
+        position: absolute;
+
+        top: 18px;
+        right: 18px;
+
+        width: 38px;
+        height: 38px;
+
+        border: none;
+
+        border-radius: 50%;
+
+        background: #f1f3f4;
+
+        color: #555;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        cursor: pointer;
+
+        transition: 0.2s;
+      }
+
+      .close-btn:hover {
+        background: #e4e7eb;
+        color: #d93025;
+      }
+
+      /* Drop zone */
+
+      .drop-zone {
+        border: 2px dashed #b7c0cc;
+
+        border-radius: 16px;
+
+        padding: 55px 20px;
+
+        text-align: center;
+
+        transition: 0.3s;
+
+        cursor: pointer;
+      }
+
+      .drop-zone:hover,
+      .drop-zone.dragover {
+        border-color: #1976d2;
+
+        background: #f1f7ff;
+      }
+
+      .upload-icon {
+        font-size: 60px;
+
+        color: #1976d2;
+
+        margin-bottom: 15px;
+      }
+
+      .drop-zone h2 {
+        margin-bottom: 10px;
+
+        font-size: 22px;
+      }
+
+      .drop-zone p {
+        color: #777;
+
+        margin-bottom: 20px;
+      }
+
+      /* Choose button */
+
+      .choose-btn {
+        display: inline-flex;
+
+        align-items: center;
+
+        gap: 8px;
+
+        background: #1976d2;
+
+        color: white;
+
+        padding: 12px 22px;
+
+        border-radius: 10px;
+
+        cursor: pointer;
+
+        font-weight: bold;
+
+        border: none;
+      }
+
+      .choose-btn:hover {
+        background: #125ca8;
+      }
+
+      #fileInput {
+        display: none;
+      }
+
+      /* Selected files */
+
+      .selected-files {
+        margin-top: 30px;
+      }
+
+      .selected-files h3 {
+        margin-bottom: 15px;
+      }
+
+      .file-list {
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 10px;
+
+        max-height: 220px;
+
+        overflow-y: auto;
+      }
+
+      .file-item {
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        padding: 14px;
+
+        background: #f6f8fa;
+
+        border-radius: 10px;
+      }
+
+      .file-info {
+        display: flex;
+
+        align-items: center;
+
+        gap: 12px;
+
+        min-width: 0;
+      }
+
+      .file-icon {
+        color: #1976d2;
+
+        font-size: 30px;
+      }
+
+      .file-name {
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+
+        white-space: nowrap;
+      }
+
+      .file-size {
+        color: #888;
+
+        font-size: 13px;
+      }
+
+      /* Remove button */
+
+      .remove-btn {
+        border: none;
+
+        background: transparent;
+
+        cursor: pointer;
+
+        color: #777;
+      }
+
+      .remove-btn:hover {
+        color: red;
+      }
+
+      /* Upload button */
+
+      .upload-action {
+        margin-top: 25px;
+
+        display: flex;
+
+        justify-content: flex-end;
+      }
+
+      .upload-btn {
+        border: none;
+
+        background: #22a06b;
+
+        color: white;
+
+        padding: 13px 25px;
+
+        border-radius: 10px;
+
+        font-size: 15px;
+
+        font-weight: bold;
+
+        cursor: pointer;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 8px;
+      }
+
+      .upload-btn:hover {
+        background: #188557;
+      }
+
+      .empty {
+        color: #999;
+
+        text-align: center;
+
+        padding: 10px;
+      }
+
+      /* Mobile */
+
+      @media (max-width: 600px) {
+        .modal-overlay {
+          padding: 15px;
+        }
+
+        .upload-card {
+          padding: 20px;
+        }
+
+        .drop-zone {
+          padding: 40px 15px;
+        }
+
+        .top h1 {
+          font-size: 22px;
+        }
+
+        .top {
+          padding-right: 35px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- POPUP OVERLAY -->
+
+    <div class="modal-overlay">
+      <div class="upload-container">
+        <!-- TOP -->
+
+        <div class="top">
+          <a href="index.html" class="back-btn">
+            <span class="material-symbols-outlined"> arrow_back </span>
+
+            Back
+          </a>
+
+          <h1>Upload to Mini Drive</h1>
+        </div>
+
+        <!-- UPLOAD CARD -->
+
+        <div class="upload-card">
+          <!-- CLOSE BUTTON -->
+
+          <button
+            class="close-btn"
+            onclick="window.location.href = 'index.html'"
+            aria-label="Close"
+          >
+            <span class="material-symbols-outlined"> close </span>
+          </button>
+
+          <!-- DROP ZONE -->
+
+          <div class="drop-zone" id="dropZone">
+            <span class="material-symbols-outlined upload-icon">
+              cloud_upload
+            </span>
+
+            <h2>Upload your files</h2>
+
+            <p>Drag & drop files here or choose files from your device</p>
+
+            <label for="fileInput" class="choose-btn">
+              <span class="material-symbols-outlined"> folder_open </span>
+
+              Choose Files
+            </label>
+
+            <input
+              type="file"
+              id="fileInput"
+              multiple
+              accept="image/*,video/*,audio/*,.pdf,.doc,.docx,.txt,.zip,.rar"
+            />
+          </div>
+
+          <!-- SELECTED FILES -->
+
+          <div class="selected-files">
+            <h3>Selected Files</h3>
+
+            <div class="file-list" id="fileList">
+              <div class="empty">No files selected</div>
+            </div>
+          </div>
+
+          <!-- UPLOAD ACTION -->
+
+          <div class="upload-action">
+            <button class="upload-btn" onclick="uploadFiles()">
+              <span class="material-symbols-outlined"> cloud_upload </span>
+
+              Upload Files
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const fileInput = document.getElementById("fileInput");
+
+      const fileList = document.getElementById("fileList");
+
+      const dropZone = document.getElementById("dropZone");
+
+      let selectedFiles = [];
+
+      /* FILE INPUT */
+
+      fileInput.addEventListener("change", function () {
+        addFiles(this.files);
+      });
+
+      /* ADD FILES */
+
+      function addFiles(files) {
+        for (let file of files) {
+          selectedFiles.push(file);
+        }
+
+        displayFiles();
+      }
+
+      /* DISPLAY FILES */
+
+      function displayFiles() {
+        fileList.innerHTML = "";
+
+        if (selectedFiles.length === 0) {
+          fileList.innerHTML = '<div class="empty">No files selected</div>';
+
+          return;
+        }
+
+        selectedFiles.forEach((file, index) => {
+          const item = document.createElement("div");
+
+          item.className = "file-item";
+
+          item.innerHTML = `
+
+              <div class="file-info">
+
+                <span class="material-symbols-outlined file-icon">
+
+                  ${getFileIcon(file.type)}
+
+                </span>
+
+
+                <div>
+
+                  <div class="file-name">
+
+                    ${file.name}
+
+                  </div>
+
+
+                  <div class="file-size">
+
+                    ${formatSize(file.size)}
+
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <button
+                class="remove-btn"
+                onclick="removeFile(${index})"
+              >
+
+                <span class="material-symbols-outlined">
+
+                  close
+
+                </span>
+
+              </button>
+
+            `;
+
+          fileList.appendChild(item);
+        });
+      }
+
+      /* FILE ICON */
+
+      function getFileIcon(type) {
+        if (type.startsWith("image/")) {
+          return "image";
+        }
+
+        if (type.startsWith("video/")) {
+          return "movie";
+        }
+
+        if (type.startsWith("audio/")) {
+          return "audio_file";
+        }
+
+        if (type === "application/pdf") {
+          return "picture_as_pdf";
+        }
+
+        if (type.includes("word") || type.includes("document")) {
+          return "description";
+        }
+
+        return "insert_drive_file";
+      }
+
+      /* FILE SIZE */
+
+      function formatSize(bytes) {
+        if (bytes < 1024) {
+          return bytes + " B";
+        }
+
+        if (bytes < 1024 * 1024) {
+          return (bytes / 1024).toFixed(1) + " KB";
+        }
+
+        if (bytes < 1024 * 1024 * 1024) {
+          return (bytes / (1024 * 1024)).toFixed(1) + " MB";
+        }
+
+        return (bytes / (1024 * 1024 * 1024)).toFixed(1) + " GB";
+      }
+
+      /* REMOVE FILE */
+
+      function removeFile(index) {
+        selectedFiles.splice(index, 1);
+
+        displayFiles();
+      }
+
+      /* DRAG OVER */
+
+      dropZone.addEventListener("dragover", function (event) {
+        event.preventDefault();
+
+        dropZone.classList.add("dragover");
+      });
+
+      /* DRAG LEAVE */
+
+      dropZone.addEventListener("dragleave", function () {
+        dropZone.classList.remove("dragover");
+      });
+
+      /* DROP */
+
+      dropZone.addEventListener("drop", function (event) {
+        event.preventDefault();
+
+        dropZone.classList.remove("dragover");
+
+        addFiles(event.dataTransfer.files);
+      });
+
+      /* UPLOAD */
+
+      function uploadFiles() {
+        if (selectedFiles.length === 0) {
+          alert("Please select at least one file.");
+
+          return;
+        }
+
+        alert(
+          selectedFiles.length +
+            " file(s) selected. Backend upload will be connected here.",
+        );
+      }
+    </script>
+  </body>
+</html>

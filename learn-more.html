@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script>
+      (function () {
+        try {
+          if (sessionStorage.getItem("mdPortalEnter") === "1") {
+            document.documentElement.classList.add("md-entering");
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <style id="mdEnterBoot">
+      html.md-entering body {
+        opacity: 0 !important;
+      }
+      html.md-entering {
+        background: #eef2ff !important;
+      }
+      html.md-entering.dark,
+      html.dark.md-entering {
+        background: #0f172a !important;
+      }
+      html.md-entered body {
+        opacity: 1 !important;
+        -webkit-transition: opacity 0.45s ease !important;
+        transition: opacity 0.45s ease !important;
+      }
+    </style>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learn more — MiniDrive</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="frontpage.css" />
+    <link rel="stylesheet" href="learn-more.css" />
+    <script>
+      (function () {
+
+        // Unified cloud portal navigation
+                                                function navigatePortal(url, opts) {
+          opts = opts || {};
+          try {
+            if (window.__mdPortalTimer) {
+              clearTimeout(window.__mdPortalTimer);
+              window.__mdPortalTimer = null;
+            }
+            document.querySelectorAll(".md-portal").forEach(function (n) { n.remove(); });
+            var portal = document.createElement("div");
+            portal.className = "md-portal";
+            portal.setAttribute("aria-hidden", "true");
+            portal.innerHTML = '<div class="md-portal-core"><span class="material-symbols-outlined">cloud</span></div>';
+            document.body.appendChild(portal);
+            void portal.offsetWidth;
+            requestAnimationFrame(function () {
+              portal.classList.add("md-portal-on");
+            });
+            // Wait until cover is fully opaque before navigating (no flash)
+            var delay = opts.delay != null ? opts.delay : 450;
+            if (url) {
+              try { sessionStorage.setItem("mdPortalEnter", "1"); } catch (e) {}
+              window.__mdPortalTimer = setTimeout(function () {
+                window.__mdPortalTimer = null;
+                window.location.href = url;
+              }, delay);
+            } else {
+              window.__mdPortalTimer = setTimeout(function () {
+                window.__mdPortalTimer = null;
+                portal.classList.add("md-portal-done");
+                setTimeout(function () { try { portal.remove(); } catch (e) {} }, 420);
+              }, delay);
+            }
+          } catch (e) {
+            if (url) window.location.href = url;
+          }
+        }
+
+
+
+
+
+
+        // Portal enter when arriving from another page
+        (function playPortalIn() {
+          try {
+            if (sessionStorage.getItem("mdPortalEnter") !== "1") {
+              document.documentElement.classList.remove("md-entering");
+              return;
+            }
+            sessionStorage.removeItem("mdPortalEnter");
+            document.documentElement.classList.add("md-entered");
+            document.documentElement.classList.remove("md-entering");
+            setTimeout(function () {
+      document.documentElement.classList.remove("md-entered");
+              var boot = document.getElementById("mdEnterBoot");
+              if (boot) try { boot.remove(); } catch (e) {}
+            }, 550);
+          } catch (e) {
+            try { document.documentElement.classList.remove("md-entering"); } catch (err) {}
+          }
+        })();
+        (function () {
+          function clearPortals() {
+            try { document.querySelectorAll(".md-portal").forEach(function (n) { n.remove(); }); } catch (e) {}
+          }
+          window.addEventListener("pageshow", function (e) {
+            if (e.persisted) {
+              clearPortals();
+              try { sessionStorage.removeItem("mdPortalEnter"); } catch (err) {}
+            }
+          });
+          window.addEventListener("pagehide", clearPortals);
+        })();
+
+
+        // Intercept internal navigation links for portal transition
+        document.addEventListener("click", function (e) {
+          var a = e.target.closest && e.target.closest("a[href]");
+          if (!a) return;
+          var href = a.getAttribute("href") || "";
+          if (!href || href.charAt(0) === "#" || href.indexOf("http") === 0 || href.indexOf("mailto:") === 0) return;
+          if (href.indexOf("frontpage.html") >= 0 || href.indexOf("login.html") >= 0 || href.indexOf("index.html") >= 0) {
+            e.preventDefault();
+            navigatePortal(href, { dir: "out" });
+          }
+        });
+
+        try {
+          var mode = localStorage.getItem("themeMode") || localStorage.getItem("theme") || "system";
+          var preferDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+          var dark = mode === "dark" || (mode !== "light" && !!preferDark);
+          if (dark) document.documentElement.classList.add("dark");
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body class="learn-page is-entering">
+    <div class="bg-orbs" aria-hidden="true">
+      <span class="orb orb-a"></span>
+      <span class="orb orb-b"></span>
+      <span class="orb orb-c"></span>
+    </div>
+
+    <nav class="learn-nav nav-hidden" id="learnNav">
+      <a class="logo" href="frontpage.html" aria-label="MiniDrive">
+        <span class="material-symbols-outlined">cloud</span>
+        <h3>MiniDrive</h3>
+      </a>
+      <div class="nav-right">
+        <button type="button" class="theme-btn" id="lmThemeBtn" title="Toggle theme" aria-label="Toggle dark mode">
+          <span class="material-symbols-outlined" id="lmThemeIcon">dark_mode</span>
+        </button>
+        <a class="login-btn" href="login.html?mode=signin">Sign in</a>
+      </div>
+    </nav>
+    <div class="learn-sheet" id="learnSheet">
+    <!-- Top intro with feature pics — animations start after this -->
+    <header class="learn-hero">
+      <p class="story-kicker reveal-item ri-1">About MiniDrive</p>
+      <h1 class="reveal-item ri-2">Everything in one<br /><span class="gradient-text">calm workspace</span></h1>
+      <p class="learn-lead reveal-item ri-3">
+        Your files, folders, and media in a simple place you control.
+        Scroll down to see how each part works.
+      </p>
+
+      <div class="learn-intro-grid">
+        <div class="learn-intro-card stage-3d reveal-card rc-1">
+          <div class="learn-intro-visual v-folder">
+            <span class="material-symbols-outlined">folder</span>
+            <span class="material-symbols-outlined sub">create_new_folder</span>
+          </div>
+          <h3>Organize</h3>
+          <p>Folders and files stay nested the way you leave them.</p>
+        </div>
+        <div class="learn-intro-card stage-3d reveal-card rc-2">
+          <div class="learn-intro-visual v-upload">
+            <span class="material-symbols-outlined">cloud_upload</span>
+            <span class="material-symbols-outlined sub">upload_file</span>
+          </div>
+          <h3>Upload</h3>
+          <p>Drop files or whole folders from your computer.</p>
+        </div>
+        <div class="learn-intro-card stage-3d reveal-card rc-3">
+          <div class="learn-intro-visual v-media">
+            <span class="material-symbols-outlined">play_circle</span>
+            <span class="material-symbols-outlined sub">music_note</span>
+          </div>
+          <h3>Preview</h3>
+          <p>Open PDFs, play audio, and watch video in Drive.</p>
+        </div>
+        <div class="learn-intro-card stage-3d reveal-card rc-4">
+          <div class="learn-intro-visual v-safe">
+            <span class="material-symbols-outlined">delete</span>
+            <span class="material-symbols-outlined sub">restore</span>
+          </div>
+          <h3>Recover</h3>
+          <p>Trash holds deletes until you restore or remove them.</p>
+        </div>
+      </div>
+
+      <div class="learn-scroll-hint reveal-hint" aria-hidden="true">
+        <span class="material-symbols-outlined hint-cloud">cloud</span>
+        <span class="material-symbols-outlined hint-arrow">keyboard_double_arrow_down</span>
+      </div>
+    </header>
+
+    <section class="scroll-story learn-story" id="scrollStory">
+      <div class="story-scene" data-scene="upload">
+        <div class="story-inner">
+          <div class="story-copy reveal">
+            <p class="story-kicker">Upload</p>
+            <h2>Drop a whole folder.<br />It’s in your Drive.</h2>
+            <p>Upload folders with structure intact — files land safely in the right place.</p>
+          </div>
+          <div class="story-stage reveal" data-anim="upload">
+            <div class="stage-device stage-3d">
+              <div class="window-chrome" aria-hidden="true">
+                <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+              </div>
+              <div class="window-pane">
+                <div class="stage-folder-target">
+                  <span class="material-symbols-outlined">folder</span>
+                  <span>Projects</span>
+                </div>
+                <div class="fly-file ff1"><span class="material-symbols-outlined">description</span> notes.txt</div>
+                <div class="fly-file ff2"><span class="material-symbols-outlined">image</span> cover.png</div>
+                <div class="fly-file ff3"><span class="material-symbols-outlined">picture_as_pdf</span> brief.pdf</div>
+                <div class="upload-progress"><i></i></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="story-scene" data-scene="trash">
+        <div class="story-inner story-inner-flip">
+          <div class="story-stage reveal" data-anim="trash">
+            <div class="stage-device trash-stage stage-3d">
+              <div class="window-chrome" aria-hidden="true">
+                <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+              </div>
+              <div class="window-pane">
+                <div class="trash-bin">
+                  <span class="material-symbols-outlined">delete</span>
+                  <span>Trash</span>
+                </div>
+                <div class="toss-file tf1"><span class="material-symbols-outlined">draft</span></div>
+                <div class="toss-file tf2"><span class="material-symbols-outlined">image</span></div>
+                <div class="toss-file tf3"><span class="material-symbols-outlined">folder</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="story-copy reveal">
+            <p class="story-kicker">Trash</p>
+            <h2>Throw it away.<br />Recover anytime.</h2>
+            <p>Deleted items go to Trash first — restore them, or remove them for good.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="story-scene" data-scene="audio">
+        <div class="story-inner">
+          <div class="story-copy reveal">
+            <p class="story-kicker">Audio</p>
+            <h2>Press play.<br />Hear it instantly.</h2>
+            <p>Open MP3s and more right in Mini Drive with a clean, focused player.</p>
+          </div>
+          <div class="story-stage reveal" data-anim="audio">
+            <div class="stage-device audio-stage stage-3d">
+              <div class="window-chrome" aria-hidden="true">
+                <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+              </div>
+              <div class="window-pane">
+                <div class="audio-disc">
+                  <span class="material-symbols-outlined">music_note</span>
+                </div>
+                <div class="audio-bars" aria-hidden="true">
+                  <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                </div>
+                <div class="audio-track-ui">
+                  <span class="material-symbols-outlined">play_arrow</span>
+                  <div class="audio-line"><b></b></div>
+                  <span>1:24</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="story-scene" data-scene="video">
+        <div class="story-inner story-inner-flip">
+          <div class="story-stage reveal" data-anim="video">
+            <div class="stage-device video-stage stage-3d">
+              <div class="window-chrome" aria-hidden="true">
+                <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+              </div>
+              <div class="window-pane">
+                <div class="video-screen">
+                  <span class="material-symbols-outlined play-big">play_circle</span>
+                  <div class="video-scrub"><b></b></div>
+                </div>
+                <div class="video-label">Vacation.mp4</div>
+              </div>
+            </div>
+          </div>
+          <div class="story-copy reveal">
+            <p class="story-kicker">Video</p>
+            <h2>Watch without<br />leaving Drive.</h2>
+            <p>Play clips in a built-in player — no downloads, no extra apps.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="learn-info">
+        <h2>Built for everyday files</h2>
+        <div class="learn-info-grid">
+          <article class="learn-info-card stage-3d">
+            <span class="material-symbols-outlined">folder</span>
+            <h3>Folders &amp; files</h3>
+            <p>Create folders, upload files or whole folders, rename, move, and keep everything organized.</p>
+          </article>
+          <article class="learn-info-card stage-3d">
+            <span class="material-symbols-outlined">star</span>
+            <h3>Starred &amp; shared</h3>
+            <p>Mark important items, share what matters, and find recent work in one place.</p>
+          </article>
+          <article class="learn-info-card stage-3d">
+            <span class="material-symbols-outlined">delete</span>
+            <h3>Trash &amp; recover</h3>
+            <p>Nothing is gone immediately — recover from Trash or delete permanently when you’re sure.</p>
+          </article>
+          <article class="learn-info-card stage-3d">
+            <span class="material-symbols-outlined">tune</span>
+            <h3>Your preferences</h3>
+            <p>Light or dark theme, grid or list, language, and more — all in Settings.</p>
+          </article>
+        </div>
+        <div class="learn-cta-row">
+          <a class="primary-btn" href="login.html?mode=signup">Get started →</a>
+          <a class="secondary-btn" href="frontpage.html">Back to home</a>
+        </div>
+      </div>
+    </section>
+    </div><!-- /.learn-sheet -->
+
+    <script>
+      (function () {
+
+
+
+        // Cinematic staggered reveal
+        document.documentElement.classList.add("lm-lock");
+        requestAnimationFrame(function () {
+          document.body.classList.add("is-revealing");
+          setTimeout(function () {
+            document.body.classList.add("show-hero");
+          }, 80);
+          setTimeout(function () {
+            document.body.classList.add("show-cards");
+          }, 280);
+          setTimeout(function () {
+            document.body.classList.add("show-hint");
+            document.body.classList.remove("is-entering");
+            document.documentElement.classList.remove("lm-lock");
+          }, 560);
+        });
+
+
+        function applyTheme() {
+          var dark = document.documentElement.classList.contains("dark");
+          document.body.classList.toggle("dark", dark);
+          var icon = document.getElementById("lmThemeIcon");
+          if (icon) icon.textContent = dark ? "light_mode" : "dark_mode";
+        }
+        applyTheme();
+        var btn = document.getElementById("lmThemeBtn");
+        if (btn) {
+          btn.addEventListener("click", function () {
+            var dark = !document.documentElement.classList.contains("dark");
+            document.documentElement.classList.toggle("dark", dark);
+            localStorage.setItem("themeMode", dark ? "dark" : "light");
+            localStorage.setItem("theme", dark ? "dark" : "light");
+            applyTheme();
+          });
+        }
+
+        // Nav starts hidden; show after scrolling down past threshold
+        var nav = document.getElementById("learnNav");
+        function onNavScroll() {
+          var y = window.scrollY || 0;
+          if (y > 160) {
+            nav.classList.remove("nav-hidden");
+          } else {
+            nav.classList.add("nav-hidden");
+          }
+        }
+        window.addEventListener("scroll", onNavScroll, { passive: true });
+        onNavScroll();
+
+        var reduces =
+          window.matchMedia &&
+          window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var scenes = document.querySelectorAll(".story-scene");
+
+        function clamp(n, a, b) {
+          return Math.max(a, Math.min(b, n));
+        }
+
+        // Only open when scrolled into view — stays closed at page load
+        function sceneOpen(el) {
+          var rect = el.getBoundingClientRect();
+          var vh = window.innerHeight || 1;
+          // Require scene to have entered the middle band
+          var mid = rect.top + rect.height * 0.4;
+          if (mid > vh * 0.92 || rect.bottom < vh * 0.08) return 0;
+          var bandTop = vh * 0.12;
+          var bandBottom = vh * 0.88;
+          var visible = Math.min(rect.bottom, bandBottom) - Math.max(rect.top, bandTop);
+          var need = Math.min(rect.height * 0.5, vh * 0.38) || 1;
+          var raw = clamp(visible / need, 0, 1);
+          var open = raw * raw * (3 - 2 * raw);
+          if (open > 0.35) open = Math.pow(open, 0.75);
+          return clamp(open, 0, 1);
+        }
+
+        function update() {
+          scenes.forEach(function (scene) {
+            var open = reduces ? 1 : sceneOpen(scene);
+            scene.style.setProperty("--open", open.toFixed(4));
+            if (open > 0.45) scene.classList.add("active");
+            else scene.classList.remove("active");
+          });
+        }
+
+        // Force closed on load so folder anim does not run immediately
+        scenes.forEach(function (scene) {
+          scene.style.setProperty("--open", "0");
+          scene.classList.remove("active");
+        });
+
+        var ticking = false;
+        window.addEventListener(
+          "scroll",
+          function () {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(function () {
+              update();
+              ticking = false;
+            });
+          },
+          { passive: true }
+        );
+        window.addEventListener("resize", update, { passive: true });
+        // Don't call update() on load — wait for first scroll
+        // Small delay only if user lands mid-page
+        setTimeout(function () {
+          if ((window.scrollY || 0) > 80) update();
+        }, 100);
+
+        document.querySelectorAll(".stage-3d").forEach(function (el) {
+          el.addEventListener("pointermove", function (e) {
+            var r = el.getBoundingClientRect();
+            var x = (e.clientX - r.left) / r.width - 0.5;
+            var y = (e.clientY - r.top) / r.height - 0.5;
+            el.style.setProperty("--rx", (-y * 12).toFixed(2) + "deg");
+            el.style.setProperty("--ry", (x * 14).toFixed(2) + "deg");
+          });
+          el.addEventListener("pointerleave", function () {
+            el.style.setProperty("--rx", "0deg");
+            el.style.setProperty("--ry", "0deg");
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>
